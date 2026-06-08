@@ -1,0 +1,28 @@
+{
+  "id": "qwen",
+  "name": "Qwen",
+  "match": {
+    "modelPattern": "qwen"
+  },
+  "params": {
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20
+  },
+  "toolCallStyle": "native",
+  "toolHints": {
+    "write_file": "Creates a file or overwrites one to edit it. There is no create_file, new_file, save_file, edit_file, str_replace, or apply_patch; use write_file for every create and edit.",
+    "read_file": "Reads a file's contents. There is no cat, open_file, or view_file; use read_file.",
+    "list_directory": "Lists files and folders in a directory. There is no ls, list_files, or dir; use list_directory.",
+    "execute_command": "Runs one shell command. There is no bash, shell, run_command, terminal, or exec tool; use execute_command. Do not use it to read or write files; use read_file and write_file.",
+    "search_web": "Searches the web. There is no google, web_search, or browse tool; use search_web.",
+    "fetch_web_page": "Fetches a page by URL as HTML. There is no open_url, visit, navigate, or curl; use fetch_web_page, or extract_web_text for just the readable text.",
+    "extract_web_text": "Gets the readable text of a web page. There is no scrape or read_url; use extract_web_text.",
+    "delete_file": "Deletes a file or folder. There is no rm, remove_file, or unlink; use delete_file.",
+    "create_directory": "Creates a folder, including missing parents. There is no mkdir or create_folder; use create_directory.",
+    "move_file": "Moves or renames a file or folder. There is no mv or rename; use move_file.",
+    "copy_file": "Copies a file. There is no cp; use copy_file.",
+    "download_file": "Downloads a URL to a local file. There is no wget or curl; use download_file."
+  },
+  "notes": "Strong native tool-caller (~94% first-attempt). Vendor non-thinking params; for thinking mode use temperature 0.6 / top_p 0.95."
+}

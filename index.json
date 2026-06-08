@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-06-08",
+  "profiles": [
+    {
+      "id": "deepseek",
+      "name": "DeepSeek",
+      "file": "profiles/deepseek.json",
+      "modelPattern": "deepseek"
+    },
+    {
+      "id": "qwen",
+      "name": "Qwen",
+      "file": "profiles/qwen.json",
+      "modelPattern": "qwen"
+    },
+    {
+      "id": "glm",
+      "name": "GLM",
+      "file": "profiles/glm.json",
+      "modelPattern": "glm"
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi",
+      "file": "profiles/kimi.json",
+      "modelPattern": "kimi"
+    },
+    {
+      "id": "mistral",
+      "name": "Mistral",
+      "file": "profiles/mistral.json",
+      "modelPattern": "mistral"
+    },
+    {
+      "id": "gemma",
+      "name": "Gemma",
+      "file": "profiles/gemma.json",
+      "modelPattern": "gemma"
+    },
+    {
+      "id": "llama",
+      "name": "Llama",
+      "file": "profiles/llama.json",
+      "modelPattern": "llama"
+    },
+    {
+      "id": "small",
+      "name": "Small model (compact)",
+      "file": "profiles/small.json",
+      "modelPattern": "*b"
+    }
+  ]
+}
