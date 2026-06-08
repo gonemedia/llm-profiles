@@ -36,8 +36,9 @@ run unchanged. Profiles target the models that benefit: weaker, local, or quirky
 
 ## How Skales uses them
 
-In Skales: **Settings → AI Provider → LLM Profiles** (opt-in). The most specific
-match wins (longest literal pattern, provider pinned); an imported profile
+In Skales: **Settings → LLM Profiles** (its own card, next to AI Providers) or the
+dedicated **/profiles** page (opt-in). The most specific match wins (longest
+literal pattern, provider pinned); an imported profile
 outranks a built-in at equal specificity, so you can override one. Import a
 profile by **file**, by pasting **JSON**, or by **URL** (point it at a raw file
 in this repo). `index.json` is a manifest so a client can list and fetch the
