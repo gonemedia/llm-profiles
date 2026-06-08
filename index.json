@@ -15,6 +15,12 @@
       "modelPattern": "qwen"
     },
     {
+      "id": "minimax",
+      "name": "MiniMax",
+      "file": "profiles/minimax.json",
+      "modelPattern": "minimax"
+    },
+    {
       "id": "glm",
       "name": "GLM",
       "file": "profiles/glm.json",

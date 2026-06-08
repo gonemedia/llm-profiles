@@ -27,6 +27,7 @@ run unchanged. Profiles target the models that benefit: weaker, local, or quirky
 |---|---|---|
 | DeepSeek | `deepseek` | Capable but less reliable at multi-tool calling; cap + explicit hint. |
 | Qwen | `qwen` | Strong native tool-caller; vendor sampling params. |
+| MiniMax | `minimax` | Agentic tool-caller (M2 / M2.7); vendor sampling params (temp 1.0, top_p 0.95, top_k 40). |
 | GLM | `glm` | Solid tool-caller; vendor params. |
 | Kimi | `kimi` | Over-deliberates; hint to act decisively. |
 | Mistral | `mistral` | Low vendor temp; good for structured output. |

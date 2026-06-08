@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1 - 2026-06-08
+
+- Added the MiniMax profile (`minimax`, covers M2 / M2.7). Vendor sampling per the
+  MiniMax-M2.7 model card (HuggingFace / NVIDIA): temperature 1.0, top_p 0.95,
+  top_k 40. Capable native tool-caller, so no tool cap; carries the shared tool
+  hints.
+
 ## 0.2.0 - 2026-06-08
 
 - Added `toolHints`: per-tool notes that teach a model your exact tool names
