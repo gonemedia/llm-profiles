@@ -11,7 +11,13 @@
   },
   "toolCallStyle": "native",
   "toolHints": {
-    "write_file": "Creates a file or overwrites one to edit it. There is no create_file, new_file, save_file, edit_file, str_replace, or apply_patch; use write_file for every create and edit.",
+    "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it.",
+    "edit_file": "Edits an existing file by replacing an exact piece of text (old_string to new_string). There is no str_replace, apply_patch, patch_file, or sed; use edit_file. old_string must be unique, or set replace_all.",
+    "git_status": "Shows git status (branch + changed files) of the bound folder. Prefer it over running git in execute_command.",
+    "git_diff": "Shows the git diff of the bound folder. Prefer it over git in execute_command.",
+    "git_commit": "Stages all changes and commits in the bound folder with a message. No need to run git add/commit in the shell; use git_commit.",
+    "git_push": "Pushes commits from the bound folder to the remote. Use git_push, not git in execute_command.",
+    "test_run": "Runs the project tests in the bound folder (auto-detects npm/jest/vitest, pytest, cargo, go). Prefer it over guessing the test command.",
     "read_file": "Reads a file's contents. There is no cat, open_file, or view_file; use read_file.",
     "list_directory": "Lists files and folders in a directory. There is no ls, list_files, or dir; use list_directory.",
     "execute_command": "Runs one shell command. There is no bash, shell, run_command, terminal, or exec tool; use execute_command. Do not use it to read or write files; use read_file and write_file.",
@@ -22,7 +28,12 @@
     "create_directory": "Creates a folder, including missing parents. There is no mkdir or create_folder; use create_directory.",
     "move_file": "Moves or renames a file or folder. There is no mv or rename; use move_file.",
     "copy_file": "Copies a file. There is no cp; use copy_file.",
-    "download_file": "Downloads a URL to a local file. There is no wget or curl; use download_file."
+    "download_file": "Downloads a URL to a local file. There is no wget or curl; use download_file.",
+    "send_email": "Sends an email through the user's configured account. There is no email, mail, or compose tool; use send_email.",
+    "send_whatsapp_message": "Sends a WhatsApp message to a permitted contact. There is no whatsapp or send_message tool; use send_whatsapp_message.",
+    "send_telegram_notification": "Sends a Telegram message to the paired chat. There is no telegram or notify tool; use send_telegram_notification.",
+    "create_task": "Adds a plain to-do WITHOUT a time component. There is no add_todo or todo tool; use create_task. Anything time-based (\"remind me at/in ...\") goes to planner_create_task instead.",
+    "planner_create_task": "Schedules a one-time or recurring reminder/job (daily, weekly, monthly). There is no set_reminder, remind, schedule, or cron tool; use planner_create_task, or schedule_recurring_task for sub-daily intervals."
   },
   "notes": "GLM 5.x, solid tool-caller (~91% first-attempt)."
 }

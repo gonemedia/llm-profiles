@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-06-08",
+  "updated": "2026-06-10",
   "profiles": [
     {
       "id": "deepseek",
@@ -49,6 +49,18 @@
       "name": "Llama",
       "file": "profiles/llama.json",
       "modelPattern": "llama"
+    },
+    {
+      "id": "phi",
+      "name": "Phi",
+      "file": "profiles/phi.json",
+      "modelPattern": "phi"
+    },
+    {
+      "id": "gpt-oss",
+      "name": "GPT-OSS",
+      "file": "profiles/gpt-oss.json",
+      "modelPattern": "gpt-oss"
     },
     {
       "id": "small",
