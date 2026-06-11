@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-06-10",
+  "updated": "2026-06-11",
   "profiles": [
     {
       "id": "deepseek",
@@ -9,10 +9,22 @@
       "modelPattern": "deepseek"
     },
     {
+      "id": "deepseek-v4",
+      "name": "DeepSeek V4",
+      "file": "profiles/deepseek-v4.json",
+      "modelPattern": "deepseek-v4"
+    },
+    {
       "id": "qwen",
       "name": "Qwen",
       "file": "profiles/qwen.json",
       "modelPattern": "qwen"
+    },
+    {
+      "id": "qwen3.5",
+      "name": "Qwen 3.5",
+      "file": "profiles/qwen3.5.json",
+      "modelPattern": "qwen3.5"
     },
     {
       "id": "minimax",

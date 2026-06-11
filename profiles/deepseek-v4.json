@@ -1,13 +1,12 @@
 {
-  "id": "minimax",
-  "name": "MiniMax",
+  "id": "deepseek-v4",
+  "name": "DeepSeek V4",
   "match": {
-    "modelPattern": "minimax"
+    "modelPattern": "deepseek-v4"
   },
   "params": {
     "temperature": 1.0,
-    "top_p": 0.95,
-    "top_k": 40
+    "top_p": 1.0
   },
   "toolCallStyle": "native",
   "toolHints": {
@@ -43,5 +42,5 @@
     "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
     "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
   },
-  "notes": "MiniMax M2.7 / M3 are built for agentic and tool-calling workflows; the strongest native tool-caller of the open families in practice, so vendor sampling only and deliberately NO tool cap - it gets the full catalogue. Params per the M2.7 / M3 model cards: temperature 1.0, top_p 0.95 (top_k 40 from the M2.7 card; M3 guidance omits it)."
+  "notes": "DeepSeek V4 family (V4, V4-Flash, V4-Pro): agent-grade, 1M context. Vendor guidance per the official HF model cards: temperature 1.0, top_p 1.0, all modes. Deliberately NO tool cap - V4 handles the full catalogue; the generic profile's cap starved it of most tools and made it underperform vs MiniMax. More specific pattern, so it outranks the generic deepseek profile."
 }

@@ -1,13 +1,13 @@
 {
-  "id": "minimax",
-  "name": "MiniMax",
+  "id": "qwen3.5",
+  "name": "Qwen 3.5",
   "match": {
-    "modelPattern": "minimax"
+    "modelPattern": "qwen3.5"
   },
   "params": {
     "temperature": 1.0,
     "top_p": 0.95,
-    "top_k": 40
+    "top_k": 20
   },
   "toolCallStyle": "native",
   "toolHints": {
@@ -43,5 +43,5 @@
     "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
     "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
   },
-  "notes": "MiniMax M2.7 / M3 are built for agentic and tool-calling workflows; the strongest native tool-caller of the open families in practice, so vendor sampling only and deliberately NO tool cap - it gets the full catalogue. Params per the M2.7 / M3 model cards: temperature 1.0, top_p 0.95 (top_k 40 from the M2.7 card; M3 guidance omits it)."
+  "notes": "Qwen3.5: vendor guidance moved to temperature 1.0, top_p 0.95, top_k 20 (HF Qwen3.5 model cards). Strong native tool-caller. More specific pattern, so it outranks the generic qwen profile (which keeps the Qwen2.5/Qwen3 non-thinking params)."
 }

@@ -7,6 +7,34 @@
   top_k 40. Capable native tool-caller, so no tool cap; carries the shared tool
   hints.
 
+## 0.3.0 - 2026-06-11
+
+Model refresh (researched against the current vendor model cards) and a wider
+toolHints set, prompted by real-world reports that some families "circle" while
+hunting for a tool that another family finds instantly.
+
+- New profile **DeepSeek V4** (`deepseek-v4`, outranks the generic `deepseek`):
+  vendor params temperature 1.0 / top_p 1.0 (official HF model cards, all
+  modes) and **no tool cap**. The generic profile's tight cap starved V4-class
+  models of most of the host's tools - the main reason they underperformed
+  against MiniMax in agent use.
+- New profile **Qwen 3.5** (`qwen3.5`, outranks `qwen`): vendor params
+  temperature 1.0 / top_p 0.95 / top_k 20.
+- DeepSeek (generic): maxTools 16 -> 24. The force-included core (files, web,
+  configured integrations, MCP reserve) ate half of 16, leaving almost nothing
+  for the priority tiers.
+- MiniMax: notes updated for M2.7 / M3 (params unchanged - the M3 cards keep
+  temperature 1.0 / top_p 0.95).
+- GLM: temperature 0.6 -> 0.7 per GLM-5's own agentic evals (SWE-bench setting,
+  HF model card).
+- Kimi: top_p 0.95 added (vendor); temperature stays at the 0.6 instant-mode
+  value because an agent loop wants decisive single steps.
+- toolHints everywhere: +8 entries covering inbox reading (list_emails - the
+  "read_emails / check_email / fetch_emails" trap), mark_email_read, calendar
+  (list/create event), generate_image, ask_user, search_sessions, and
+  update_todos. Models that reach for another framework's names now get steered
+  to the real ones instead of circling.
+
 ## 0.2.0 - 2026-06-08
 
 - Added `toolHints`: per-tool notes that teach a model your exact tool names

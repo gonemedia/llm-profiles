@@ -7,7 +7,7 @@
   "params": {
     "temperature": 0.3
   },
-  "maxTools": 16,
+  "maxTools": 24,
   "compactionLevel": 1,
   "toolCallStyle": "native",
   "promptHint": "Call exactly one tool at a time and wait for its result before the next. Use the exact tool names provided; do not invent tools or wrap a tool call in prose.",
@@ -34,7 +34,15 @@
     "send_whatsapp_message": "Sends a WhatsApp message to a permitted contact. There is no whatsapp or send_message tool; use send_whatsapp_message.",
     "send_telegram_notification": "Sends a Telegram message to the paired chat. There is no telegram or notify tool; use send_telegram_notification.",
     "create_task": "Adds a plain to-do WITHOUT a time component. There is no add_todo or todo tool; use create_task. Anything time-based (\"remind me at/in ...\") goes to planner_create_task instead.",
-    "planner_create_task": "Schedules a one-time or recurring reminder/job (daily, weekly, monthly). There is no set_reminder, remind, schedule, or cron tool; use planner_create_task, or schedule_recurring_task for sub-daily intervals."
+    "planner_create_task": "Schedules a one-time or recurring reminder/job (daily, weekly, monthly). There is no set_reminder, remind, schedule, or cron tool; use planner_create_task, or schedule_recurring_task for sub-daily intervals.",
+    "list_emails": "Reads the inbox: lists recent emails via IMAP. There is no read_emails, check_email, fetch_emails, get_inbox, or read_mail; use list_emails.",
+    "mark_email_read": "Marks an email as read (by uid from list_emails). There is no mark_as_read or email_mark_read; use mark_email_read.",
+    "list_calendar_events": "Lists upcoming calendar events. There is no get_calendar, check_calendar, get_events, or calendar_list; use list_calendar_events.",
+    "create_calendar_event": "Creates a calendar event. There is no add_event, calendar_add, or schedule_event; use create_calendar_event. Plain reminders go to planner_create_task instead.",
+    "generate_image": "Generates an image from a text prompt. There is no create_image, text_to_image, dalle, or imagine; use generate_image.",
+    "ask_user": "Asks the user a question and waits for the answer. There is no ask_human, request_input, or human_feedback; use ask_user.",
+    "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
+    "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
   },
-  "notes": "DeepSeek V3/V4 are capable but less reliable at multi-tool calling (~87% first-attempt); a capped tool set + explicit hint helps. toolHints steer it off invented names like create_file."
+  "notes": "Generic DeepSeek: V3-era chat models, R1, and local distills. Biased low (temp 0.3) for tool-call reliability (~87% first-attempt multi-tool). Cap raised 16 -> 24: the force-included core (files, web, configured integrations, MCP reserve) ate half of 16 and starved the priority tiers. V4-class models match the more specific deepseek-v4 profile instead."
 }
