@@ -45,8 +45,9 @@ In Skales: **Settings → LLM Profiles** (its own card, next to AI Providers) or
 dedicated **/profiles** page (opt-in). The most specific match wins (longest
 literal pattern, provider pinned); an imported profile
 outranks a built-in at equal specificity, so you can override one. Import a
-profile by **file**, by pasting **JSON**, or by **URL** (point it at a raw file
-in this repo). `index.json` is a manifest so a client can list and fetch the
+profile by **file**, by pasting **JSON**, or by **URL** - point it at a raw file
+in this repo (from Skales v11.3.2 a normal GitHub file link works too; it is
+rewritten to the raw file automatically). `index.json` is a manifest so a client can list and fetch the
 current set and stay up to date as profiles are added.
 
 ## Schema
