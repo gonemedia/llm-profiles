@@ -5,7 +5,7 @@
     "modelPattern": "qwen3.5"
   },
   "params": {
-    "temperature": 1.0,
+    "temperature": 1,
     "top_p": 0.95,
     "top_k": 20
   },
@@ -43,5 +43,6 @@
     "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
     "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
   },
-  "notes": "Qwen3.5: vendor guidance moved to temperature 1.0, top_p 0.95, top_k 20 (HF Qwen3.5 model cards). Strong native tool-caller. More specific pattern, so it outranks the generic qwen profile (which keeps the Qwen2.5/Qwen3 non-thinking params)."
+  "notes": "Qwen3.5: vendor guidance moved to temperature 1.0, top_p 0.95, top_k 20 (HF Qwen3.5 model cards). Strong native tool-caller. More specific pattern, so it outranks the generic qwen profile (which keeps the Qwen2.5/Qwen3 non-thinking params).",
+  "promptHint": "If you are unsure whether a tool exists or which tool does a job, do NOT guess, invent a tool name, or give up: call check_capabilities to list the real tools for that capability (or fetch_skales_docs for detail) and use the exact name it returns. Skales almost always has the tool you need - for a time-based reminder it is planner_create_task, for a repeating schedule schedule_recurring_task. If a tool call fails because the name is wrong, look it up and retry rather than telling the user it cannot be done."
 }

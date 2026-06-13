@@ -43,5 +43,6 @@
     "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
     "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
   },
-  "notes": "GLM-4.x / GLM-5. GLM-5's own agentic evals run at temperature 0.7, top_p 0.95 (HF model card, SWE-bench setting), up from the 0.6 of the 4.x guidance - agent-biased middle ground."
+  "notes": "GLM-4.x / GLM-5. GLM-5's own agentic evals run at temperature 0.7, top_p 0.95 (HF model card, SWE-bench setting), up from the 0.6 of the 4.x guidance - agent-biased middle ground.",
+  "promptHint": "If you are unsure whether a tool exists or which tool does a job, do NOT guess, invent a tool name, or give up: call check_capabilities to list the real tools for that capability (or fetch_skales_docs for detail) and use the exact name it returns. Skales almost always has the tool you need - for a time-based reminder it is planner_create_task, for a repeating schedule schedule_recurring_task. If a tool call fails because the name is wrong, look it up and retry rather than telling the user it cannot be done."
 }

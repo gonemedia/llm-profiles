@@ -5,11 +5,10 @@
     "modelPattern": "minimax"
   },
   "params": {
-    "temperature": 1.0,
+    "temperature": 1,
     "top_p": 0.95,
     "top_k": 40
   },
-  "maxTools": 40,
   "toolCallStyle": "native",
   "toolHints": {
     "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it.",
@@ -44,5 +43,6 @@
     "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
     "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
   },
-  "notes": "MiniMax M2.7 / M3 are built for agentic and tool-calling workflows; the strongest native tool-caller of the open families in practice. Params per the M2.7 / M3 model cards: temperature 1.0, top_p 0.95 (top_k 40 from the M2.7 card; M3 guidance omits it). maxTools 40: the full ~150-tool surface measurably hurts tool-call reliability (fixation, and raw tool-call markup leaking as text on endpoints that do not surface native tool_calls); 40 is well above the force-included floor so nothing configured is starved and check_capabilities reaches the rest on demand."
+  "notes": "MiniMax M2.7 / M3: the strongest native tool-caller of the open families in practice - vendor sampling only and NO tool cap. It is built to drive the full catalogue; trimming it to a subset drops tools the prompt actively routes to it (e.g. planner_create_task for reminders) and it reaches for the wrong tool. Raw tool-call markup leaking as text is handled by the host text-recovery parser, not by shrinking the tool set. Params per the M2.7 / M3 model cards: temperature 1.0, top_p 0.95 (top_k 40 from the M2.7 card; M3 guidance omits it).",
+  "promptHint": "If you are unsure whether a tool exists or which tool does a job, do NOT guess, invent a tool name, or give up: call check_capabilities to list the real tools for that capability (or fetch_skales_docs for detail) and use the exact name it returns. Skales almost always has the tool you need - for a time-based reminder it is planner_create_task, for a repeating schedule schedule_recurring_task. If a tool call fails because the name is wrong, look it up and retry rather than telling the user it cannot be done."
 }

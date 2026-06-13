@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.2 - 2026-06-13
+
+- **Reverted the MiniMax / DeepSeek V4 tool cap from 0.3.1.** Both are built to
+  drive the full catalogue; capping them dropped tools the host prompt actively
+  routes to them (a reminder needs `planner_create_task`, which fell outside the
+  cap), so the model reached for the wrong tool and could not create a reminder.
+  The tool-surface concern belongs to the host (force-included primaries + on-
+  demand capability lookup), not to starving a strong model. Local/weak profiles
+  keep their caps - they genuinely benefit from a smaller set.
+- **Every profile gained a tool-discovery hint.** If a model is unsure whether a
+  tool exists or which one fits, it now looks it up (`check_capabilities` /
+  `fetch_skales_docs`) and uses the exact name, instead of inventing a name or
+  telling the user it cannot be done. The biggest failure on differently-trained
+  models was giving up while the right tool was one lookup away.
+
 ## 0.3.1 - 2026-06-13
 
 - **MiniMax** and **DeepSeek V4**: added `maxTools: 40`. Both ran with no cap, so

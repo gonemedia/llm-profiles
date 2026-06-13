@@ -26,10 +26,10 @@ run unchanged. Profiles target the models that benefit: weaker, local, or quirky
 | Profile | Matches | Why |
 |---|---|---|
 | DeepSeek | `deepseek` | V3-era / R1 / local distills: less reliable at multi-tool calling; cap + explicit hint. |
-| DeepSeek V4 | `deepseek-v4` | Agent-grade (V4 / Flash / Pro); vendor params (temp 1.0, top_p 1.0), maxTools 40 (generous cap that trims the full surface for reliability). |
+| DeepSeek V4 | `deepseek-v4` | Agent-grade (V4 / Flash / Pro); vendor params (temp 1.0, top_p 1.0), no tool cap (it drives the full catalogue). |
 | Qwen | `qwen` | Qwen2.5 / Qwen3: strong native tool-caller; vendor non-thinking params. |
 | Qwen 3.5 | `qwen3.5` | Vendor params moved to temp 1.0, top_p 0.95, top_k 20. |
-| MiniMax | `minimax` | Agentic tool-caller (M2.7 / M3); vendor params (temp 1.0, top_p 0.95, top_k 40), maxTools 40 (generous cap that trims the full surface for reliability). |
+| MiniMax | `minimax` | Agentic tool-caller (M2.7 / M3); vendor params (temp 1.0, top_p 0.95, top_k 40), no tool cap (it drives the full catalogue). |
 | GLM | `glm` | Solid tool-caller (4.x / 5); GLM-5 agentic-eval params (temp 0.7, top_p 0.95). |
 | Kimi | `kimi` | Over-deliberates; instant-mode params (temp 0.6, top_p 0.95) + hint to act decisively. |
 | Mistral | `mistral` | Low vendor temp; good for structured output. |
