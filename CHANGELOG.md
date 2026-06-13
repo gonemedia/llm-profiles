@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.1 - 2026-06-13
+
+- **MiniMax** and **DeepSeek V4**: added `maxTools: 40`. Both ran with no cap, so
+  they were offered the host's full ~150-tool surface. In practice that large a
+  surface hurts tool-call reliability (fixation), and on endpoints that do not
+  surface native `tool_calls` the model is likelier to emit raw tool-call markup
+  as text (the leak then shows up in the chat). 40 is a generous cap, well above
+  the force-included floor (file core + lazy detail + configured integrations +
+  MCP reserve + Tier 0), so nothing advertised is starved and on-demand
+  capability lookup still reaches the rest. Tune up if you run many integrations.
+
 ## 0.2.1 - 2026-06-08
 
 - Added the MiniMax profile (`minimax`, covers M2 / M2.7). Vendor sampling per the

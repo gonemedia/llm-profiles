@@ -9,6 +9,7 @@
     "top_p": 0.95,
     "top_k": 40
   },
+  "maxTools": 40,
   "toolCallStyle": "native",
   "toolHints": {
     "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it.",
@@ -43,5 +44,5 @@
     "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
     "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
   },
-  "notes": "MiniMax M2.7 / M3 are built for agentic and tool-calling workflows; the strongest native tool-caller of the open families in practice, so vendor sampling only and deliberately NO tool cap - it gets the full catalogue. Params per the M2.7 / M3 model cards: temperature 1.0, top_p 0.95 (top_k 40 from the M2.7 card; M3 guidance omits it)."
+  "notes": "MiniMax M2.7 / M3 are built for agentic and tool-calling workflows; the strongest native tool-caller of the open families in practice. Params per the M2.7 / M3 model cards: temperature 1.0, top_p 0.95 (top_k 40 from the M2.7 card; M3 guidance omits it). maxTools 40: the full ~150-tool surface measurably hurts tool-call reliability (fixation, and raw tool-call markup leaking as text on endpoints that do not surface native tool_calls); 40 is well above the force-included floor so nothing configured is starved and check_capabilities reaches the rest on demand."
 }

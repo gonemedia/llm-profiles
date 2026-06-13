@@ -8,6 +8,7 @@
     "temperature": 1.0,
     "top_p": 1.0
   },
+  "maxTools": 40,
   "toolCallStyle": "native",
   "toolHints": {
     "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it.",
@@ -42,5 +43,5 @@
     "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
     "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
   },
-  "notes": "DeepSeek V4 family (V4, V4-Flash, V4-Pro): agent-grade, 1M context. Vendor guidance per the official HF model cards: temperature 1.0, top_p 1.0, all modes. Deliberately NO tool cap - V4 handles the full catalogue; the generic profile's cap starved it of most tools and made it underperform vs MiniMax. More specific pattern, so it outranks the generic deepseek profile."
+  "notes": "DeepSeek V4 family (V4, V4-Flash, V4-Pro): agent-grade, 1M context. Vendor guidance per the official HF model cards: temperature 1.0, top_p 1.0, all modes. maxTools 40 (not the generic deepseek 24): a generous cap that trims the ~150-tool flood - which hurts tool-call reliability and lets raw markup leak on endpoints that do not surface native tool_calls - while staying well above the 16-tool cap that once starved V4, so nothing configured is dropped and check_capabilities reaches the rest on demand. More specific pattern, so it outranks the generic deepseek profile."
 }
