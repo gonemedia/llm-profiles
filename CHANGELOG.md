@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.4 - 2026-06-14
+
+- **MiniMax gained a grounding hint for long Code-mode turns.** The family runs
+  hot (vendor temperature 1.0) and, on a long folder-bound coding turn, could
+  confabulate: swap the bound working folder for a half-remembered path and
+  apologize in a loop instead of re-running the tool. The profile now tells it to
+  trust the bound folder and the WORKING STATE exactly as written, to re-run the
+  actual tool after a correction instead of repeating an apology, and to state a
+  path, a file's contents or a git status only after a tool call confirms it.
+  Sampling is unchanged (still the vendor card) and the full tool catalogue stays.
+
 ## 0.3.3 - 2026-06-13
 
 - **Removed all per-profile tool caps.** A profile is a HELP layer - sampling,
