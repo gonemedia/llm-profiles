@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.3 - 2026-06-13
+
+- **Removed all per-profile tool caps.** A profile is a HELP layer - sampling,
+  tool-name hints, a discovery hint - not a place to cut the tool set. A cap here
+  matched models by NAME, so the official DeepSeek API names (`deepseek-chat` /
+  `deepseek-reasoner`, which are V4-class now) and large variants (Mistral Large,
+  Gemma 27B) were wrongly starved. Trimming the set for a genuinely small model is
+  the host's job - its local-model tool budget plus size-based detection, where the
+  essential tools (files, web, email, calendar, reminders, schedule) are always
+  kept and the user controls the number. Strong models get the full catalogue.
+
 ## 0.3.2 - 2026-06-13
 
 - **Reverted the MiniMax / DeepSeek V4 tool cap from 0.3.1.** Both are built to

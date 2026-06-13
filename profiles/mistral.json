@@ -7,7 +7,6 @@
   "params": {
     "temperature": 0.15
   },
-  "maxTools": 20,
   "toolCallStyle": "native",
   "toolHints": {
     "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it.",

@@ -7,7 +7,6 @@
   "params": {
     "temperature": 0.3
   },
-  "maxTools": 24,
   "compactionLevel": 1,
   "toolCallStyle": "native",
   "promptHint": "Call exactly one tool at a time and wait for its result before the next. Use the exact tool names provided; do not invent tools or wrap a tool call in prose. If you are unsure whether a tool exists or which tool does a job, do NOT guess, invent a tool name, or give up: call check_capabilities to list the real tools for that capability (or fetch_skales_docs for detail) and use the exact name it returns. Skales almost always has the tool you need - for a time-based reminder it is planner_create_task, for a repeating schedule schedule_recurring_task. If a tool call fails because the name is wrong, look it up and retry rather than telling the user it cannot be done.",

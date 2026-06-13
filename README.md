@@ -25,7 +25,7 @@ run unchanged. Profiles target the models that benefit: weaker, local, or quirky
 
 | Profile | Matches | Why |
 |---|---|---|
-| DeepSeek | `deepseek` | V3-era / R1 / local distills: less reliable at multi-tool calling; cap + explicit hint. |
+| DeepSeek | `deepseek` | V3-era / R1 / local distills: low temp + explicit tool-name hints for reliable multi-tool calling. |
 | DeepSeek V4 | `deepseek-v4` | Agent-grade (V4 / Flash / Pro); vendor params (temp 1.0, top_p 1.0), no tool cap (it drives the full catalogue). |
 | Qwen | `qwen` | Qwen2.5 / Qwen3: strong native tool-caller; vendor non-thinking params. |
 | Qwen 3.5 | `qwen3.5` | Vendor params moved to temp 1.0, top_p 0.95, top_k 20. |
@@ -33,11 +33,11 @@ run unchanged. Profiles target the models that benefit: weaker, local, or quirky
 | GLM | `glm` | Solid tool-caller (4.x / 5); GLM-5 agentic-eval params (temp 0.7, top_p 0.95). |
 | Kimi | `kimi` | Over-deliberates; instant-mode params (temp 0.6, top_p 0.95) + hint to act decisively. |
 | Mistral | `mistral` | Low vendor temp; good for structured output. |
-| Gemma | `gemma` | Lower temp + smaller tool set for reliable tool use. |
+| Gemma | `gemma` | Lower temp + compact prompt for reliable tool use. |
 | Llama | `llama` | Vendor params. |
-| Phi | `phi` | Verbose tool-caller; low temp + compact set. |
+| Phi | `phi` | Verbose tool-caller; low temp + compact prompt. |
 | GPT-OSS | `gpt-oss` | Strong native tool-caller for its class; decisive turns. |
-| Small model | `*b` (<= ~9B ids) | Compact prompt + small tool set for tiny models. |
+| Small model | `*b` (<= ~9B ids) | Compact prompt for tiny models (tool set is trimmed by the host's local-model setting, not the profile). |
 
 ## How Skales uses them
 
