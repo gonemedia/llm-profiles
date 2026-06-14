@@ -33,10 +33,12 @@ run unchanged. Profiles target the models that benefit: weaker, local, or quirky
 | GLM | `glm` | Solid tool-caller (4.x / 5); GLM-5 agentic-eval params (temp 0.7, top_p 0.95). |
 | Kimi | `kimi` | Over-deliberates; instant-mode params (temp 0.6, top_p 0.95) + hint to act decisively. |
 | Mistral | `mistral` | Low vendor temp; good for structured output. |
+| Devstral | `devstral` | Mistral's 24B coding/agent model (matched no profile before); low deterministic temp + a coding-agent hint (edit precisely, verify with tests). |
 | Gemma | `gemma` | Lower temp + compact prompt for reliable tool use. |
 | Llama | `llama` | Vendor params. |
 | Phi | `phi` | Verbose tool-caller; low temp + compact prompt. |
 | GPT-OSS | `gpt-oss` | Strong native tool-caller for its class; decisive turns. |
+| Nemotron | `nemotron` | NVIDIA Nemotron-3 (ultra / nano); middle-ground sampling so it gets the same per-model tuning as every other family. |
 | Small model | `*b` (<= ~9B ids) | Compact prompt for tiny models (tool set is trimmed by the host's local-model setting, not the profile). |
 
 ## How Skales uses them

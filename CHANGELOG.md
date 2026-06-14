@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.4.0 - 2026-06-14
+
+- **Devstral now has its own profile.** Mistral's Devstral-Small-2 (the 24B coding
+  model) is a heavily used pick across OpenRouter, custom endpoints and Ollama, yet
+  it matched no profile before: the id `devstral` does not contain `mistral`, so it
+  fell through with zero tuning. It now binds a coding-agent profile with a low,
+  deterministic temperature and a hint to edit precisely with `edit_file` and verify
+  with `test_run` before reporting a task done.
+
+- **Nemotron gained a profile.** NVIDIA's Nemotron-3 (ultra / nano) matched nothing
+  before; it now gets middle-ground sampling like every other family, so a user on
+  Nemotron gets the same per-model tuning instead of provider defaults.
+
+- **New optional `toolParams`.** A profile can now set sampling that applies only on
+  a turn that offers tools, where deterministic sampling produces cleaner tool-call
+  JSON, while keeping the family's full `params` for prose. When `toolParams` is
+  omitted the host clamps the base temperature down to 0.3 for tool turns and
+  restores it afterward. This never removes a tool; it only shapes how reliably the
+  call is emitted. See [SCHEMA.md](./SCHEMA.md).
+
 ## 0.3.4 - 2026-06-14
 
 - **MiniMax gained a grounding hint for long Code-mode turns.** The family runs

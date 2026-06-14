@@ -1,0 +1,47 @@
+{
+  "id": "nemotron",
+  "name": "Nemotron",
+  "match": {
+    "modelPattern": "nemotron"
+  },
+  "params": {
+    "temperature": 0.6,
+    "top_p": 0.95
+  },
+  "toolCallStyle": "native",
+  "toolHints": {
+    "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it.",
+    "edit_file": "Edits an existing file by replacing an exact piece of text (old_string to new_string). There is no str_replace, apply_patch, patch_file, or sed; use edit_file. old_string must be unique, or set replace_all.",
+    "git_status": "Shows git status (branch + changed files) of the bound folder. Prefer it over running git in execute_command.",
+    "git_diff": "Shows the git diff of the bound folder. Prefer it over git in execute_command.",
+    "git_commit": "Stages all changes and commits in the bound folder with a message. No need to run git add/commit in the shell; use git_commit.",
+    "git_push": "Pushes commits from the bound folder to the remote. Use git_push, not git in execute_command.",
+    "test_run": "Runs the project tests in the bound folder (auto-detects npm/jest/vitest, pytest, cargo, go). Prefer it over guessing the test command.",
+    "read_file": "Reads a file's contents. There is no cat, open_file, or view_file; use read_file.",
+    "list_directory": "Lists files and folders in a directory. There is no ls, list_files, or dir; use list_directory.",
+    "execute_command": "Runs one shell command. There is no bash, shell, run_command, terminal, or exec tool; use execute_command. Do not use it to read or write files; use read_file and write_file.",
+    "search_web": "Searches the web. There is no google, web_search, or browse tool; use search_web.",
+    "fetch_web_page": "Fetches a page by URL as HTML. There is no open_url, visit, navigate, or curl; use fetch_web_page, or extract_web_text for just the readable text.",
+    "extract_web_text": "Gets the readable text of a web page. There is no scrape or read_url; use extract_web_text.",
+    "delete_file": "Deletes a file or folder. There is no rm, remove_file, or unlink; use delete_file.",
+    "create_directory": "Creates a folder, including missing parents. There is no mkdir or create_folder; use create_directory.",
+    "move_file": "Moves or renames a file or folder. There is no mv or rename; use move_file.",
+    "copy_file": "Copies a file. There is no cp; use copy_file.",
+    "download_file": "Downloads a URL to a local file. There is no wget or curl; use download_file.",
+    "send_email": "Sends an email through the user's configured account. There is no email, mail, or compose tool; use send_email.",
+    "send_whatsapp_message": "Sends a WhatsApp message to a permitted contact. There is no whatsapp or send_message tool; use send_whatsapp_message.",
+    "send_telegram_notification": "Sends a Telegram message to the paired chat. There is no telegram or notify tool; use send_telegram_notification.",
+    "create_task": "Adds a plain to-do WITHOUT a time component. There is no add_todo or todo tool; use create_task. Anything time-based (\"remind me at/in ...\") goes to planner_create_task instead.",
+    "planner_create_task": "Schedules a one-time or recurring reminder/job (daily, weekly, monthly). There is no set_reminder, remind, schedule, or cron tool; use planner_create_task, or schedule_recurring_task for sub-daily intervals.",
+    "list_emails": "Reads the inbox: lists recent emails via IMAP. There is no read_emails, check_email, fetch_emails, get_inbox, or read_mail; use list_emails.",
+    "mark_email_read": "Marks an email as read (by uid from list_emails). There is no mark_as_read or email_mark_read; use mark_email_read.",
+    "list_calendar_events": "Lists upcoming calendar events. There is no get_calendar, check_calendar, get_events, or calendar_list; use list_calendar_events.",
+    "create_calendar_event": "Creates a calendar event. There is no add_event, calendar_add, or schedule_event; use create_calendar_event. Plain reminders go to planner_create_task instead.",
+    "generate_image": "Generates an image from a text prompt. There is no create_image, text_to_image, dalle, or imagine; use generate_image.",
+    "ask_user": "Asks the user a question and waits for the answer. There is no ask_human, request_input, or human_feedback; use ask_user.",
+    "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
+    "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
+  },
+  "notes": "NVIDIA Nemotron (Nemotron-3 ultra / nano). A decent native tool-caller that matched no profile before; middle-ground sampling so it gets the same per-model tuning every other family already has.",
+  "promptHint": "If you are unsure whether a tool exists or which tool does a job, do NOT guess, invent a tool name, or give up: call check_capabilities to list the real tools for that capability (or fetch_skales_docs for detail) and use the exact name it returns. Skales almost always has the tool you need - for a time-based reminder it is planner_create_task, for a repeating schedule schedule_recurring_task. If a tool call fails because the name is wrong, look it up and retry rather than telling the user it cannot be done."
+}

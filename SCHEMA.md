@@ -16,6 +16,9 @@ are required; everything else is optional and omitted fields simply do not apply
     "top_p": 0.95,
     "top_k": 40
   },
+  "toolParams": {                      // optional: sampling on a turn that OFFERS tools
+    "temperature": 0.2                 // when omitted, params.temperature is clamped to <=0.3 for tool turns
+  },
   "maxTools": 16,                      // optional: cap the offered tool set
   "compactionLevel": 1,                // optional: 0 full, 1 compact, 2 minimal
   "promptHint": "Call one tool at a time.", // optional: prepended to the system prompt
@@ -42,6 +45,11 @@ are required; everything else is optional and omitted fields simply do not apply
 
 - Prefer the model vendor's recommended sampling params; bias `temperature`
   lower than the vendor default when the family is weak at tool calling.
+- `params` applies to every call; `toolParams` overrides it only on a turn that
+  offers tools, where deterministic sampling yields cleaner tool-call JSON. Leave
+  `toolParams` out to accept the default: the base temperature is clamped down to
+  0.3 for tool turns and restored for prose. This never removes a tool; it only
+  shapes how reliably the call is emitted.
 - Only set `maxTools` / `compactionLevel` for models that genuinely struggle
   with a large tool set or prompt; do not throttle a capable model.
 - Keep `promptHint` to one or two sentences; it is a nudge, not a manual.
@@ -66,8 +74,8 @@ a tool-using agent). Treat importing a profile like running someone's config:
   the prompt (expand "What it adds to the prompt" on the profile) so you can read
   it before relying on it.
 - On import Skales bounds the rest: `id` is filename-sanitised (no path
-  traversal), `params` are clamped to sane ranges (temperature 0-2, top_p 0-1,
-  top_k 0-500), `compactionLevel` must be 0/1/2, `toolHints` is capped at 40
+  traversal), `params` and `toolParams` are clamped to sane ranges (temperature
+  0-2, top_p 0-1, top_k 0-500), `compactionLevel` must be 0/1/2, `toolHints` is capped at 40
   entries, and a `modelPattern` with many wildcards is matched without a
   backtracking regex. URL imports go through an SSRF-guarded fetch with a size cap.
 - Keep `promptHint`/`toolHints` to factual, on-topic guidance. Anything that reads

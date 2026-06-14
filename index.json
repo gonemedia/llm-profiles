@@ -51,6 +51,12 @@
       "modelPattern": "mistral"
     },
     {
+      "id": "devstral",
+      "name": "Devstral",
+      "file": "profiles/devstral.json",
+      "modelPattern": "devstral"
+    },
+    {
       "id": "gemma",
       "name": "Gemma",
       "file": "profiles/gemma.json",
@@ -73,6 +79,12 @@
       "name": "GPT-OSS",
       "file": "profiles/gpt-oss.json",
       "modelPattern": "gpt-oss"
+    },
+    {
+      "id": "nemotron",
+      "name": "Nemotron",
+      "file": "profiles/nemotron.json",
+      "modelPattern": "nemotron"
     },
     {
       "id": "small",
