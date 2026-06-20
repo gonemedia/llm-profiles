@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.1 - 2026-06-20
+
+- **GLM gained a promptHint and a GLM-5.2 note.** The GLM profile carried good
+  sampling and tool hints but no promptHint, so on a long agentic run GLM got
+  none of the anti-giveup, tool-discovery and scheduling guidance the other
+  families get. It now nudges the model to look a tool up with check_capabilities
+  rather than invent a name or give up, to reach for planner_create_task /
+  schedule_recurring_task for reminders, and on a long multi-step task to keep
+  update_todos current and continue from the next unchecked item instead of
+  starting over. The note now records GLM-5.2 (June 2026): ~1M context, up to
+  131K output, dual reasoning, coding- and agent-first; sampling is unchanged
+  (temperature 0.7, top_p 0.95, the vendor agentic setting).
+
 ## 0.4.0 - 2026-06-14
 
 - **Devstral now has its own profile.** Mistral's Devstral-Small-2 (the 24B coding
