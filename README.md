@@ -13,7 +13,7 @@ Built for [Skales](https://skales.app), usable as a plain data format anywhere.
 
 - **maxTools** - cap the number of tools offered (helps models that choke on a big tool set).
 - **compactionLevel** - prompt compaction floor (0 full, 1 compact, 2 minimal).
-- **promptHint** - a short, per-model instruction prepended to the system prompt.
+- **promptHint** - an instruction prepended to the system prompt: per-model guidance (decisiveness, grounding) plus the library's shared voice rules (act in the same turn you announce a tool, answer like a colleague, no filler or fake knowledge-cutoff disclaimers, check context before asking).
 - **params** - sampling: `temperature`, `top_p`, `top_k`.
 - **toolCallStyle** - advisory: `native` | `json` | `xml`.
 - **toolHints** - per-tool notes that teach a model your exact tool names (keyed by the real tool name), for models that reach for another framework's names like `create_file` or `bash`. Look the names up in [TOOLS.md](./TOOLS.md).

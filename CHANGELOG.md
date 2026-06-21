@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.4 - 2026-06-21
+
+- **Every profile now carries shared voice guidance.** On top of the per-model
+  tuning, each profile tells the model to answer like a colleague: no filler or
+  thanks-for-reaching-out, own a mistake in one line instead of apologizing in a
+  loop, never cite a training cutoff or claim it lacks real-time data (use
+  search_web instead), and check the context before asking a question. These
+  correct common weak-model habits. Frontier models match no profile and are
+  unaffected. Sampling, tool hints and notes are unchanged.
+
 ## 0.4.3 - 2026-06-21
 
 - **The same-turn rule now covers MiniMax, Qwen and Qwen 3.5.** The act-in-the-
