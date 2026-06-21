@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.2 - 2026-06-21
+
+- **Reasoning families act in the same turn they announce a tool.** Kimi, DeepSeek
+  and GLM now carry an explicit line in their promptHint: when the model says it is
+  about to use a tool or take an action, it must make that tool call in the same
+  message instead of posting a "let me..." or "I will now..." line and stopping.
+  Thinking models, Kimi in particular, would open a turn by narrating the action
+  and end there without the call, so a tool-using request appeared to stall until
+  the user nudged it. The sampling, tool hints and notes are unchanged.
+
 ## 0.4.1 - 2026-06-20
 
 - **GLM gained a promptHint and a GLM-5.2 note.** The GLM profile carried good
