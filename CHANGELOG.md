@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.3 - 2026-06-21
+
+- **The same-turn rule now covers MiniMax, Qwen and Qwen 3.5.** The act-in-the-
+  same-turn line added for the reasoning families in 0.4.2 is extended to
+  MiniMax and the two Qwen profiles, so a model that announces a tool runs it
+  in that message instead of narrating and stopping. Qwen and Qwen 3.5 gain a
+  promptHint for the first time; their sampling, tool hints and notes are
+  unchanged.
+
 ## 0.4.2 - 2026-06-21
 
 - **Reasoning families act in the same turn they announce a tool.** Kimi, DeepSeek
