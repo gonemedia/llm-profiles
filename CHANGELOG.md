@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.5 - 2026-07-02
+
+- **Authoring turns keep full creative sampling.** Skales v12.1.0 marks Flow
+  design turns (the artifact is written inside the tool call) as authoring
+  turns: the deterministic tool-turn temperature clamp no longer applies there,
+  so models with hot vendor guidance (DeepSeek V4, MiniMax at temperature 1.0)
+  design at full creativity while ordinary tool calls stay clamped for JSON
+  reliability. No profile changes needed; the host decides per turn.
+- **Tool reference updated.** `extract_zip` (native archive extraction) added;
+  `create_document` description corrected (Document panel, no approval).
+- **Schema guidance:** warning added that `maxTools` drops MCP server tools
+  first and can silently disable connected media backends.
+
 ## 0.4.4 - 2026-06-21
 
 - **Every profile now carries shared voice guidance.** On top of the per-model

@@ -16,7 +16,7 @@ Auto-generated from the desktop tool manifest; regenerate when tools change.
 - `check_system_status` — Audit Skales system: memory, capabilities, background jobs, integrations.
 - `content_from_url` — Scrape a URL and extract its content including text, title, description, images, and brand info. Useful for creating content inspired by a webpage, extracting data from articles, or analyzing a compet
 - `create_calendar_event` — Create a calendar event in Google Calendar / Apple Calendar / Outlook. USE THIS for any calendar request: "in Google Cal", "in den Kalender", "on my calendar", "gcal", "schedule a meeting at TIME", "trag in den Kalender", specific date+time appointments, meetings, events. NOT for autonomous Skales tasks: those use planner_create_task.
-- `create_document` — Create a text document in the workspace. Requires user approval.
+- `create_document` — Create an editable document in the chat Document panel (summaries, articles, reports). Runs without approval; it is a panel document, not a file on disk.
 - `create_spreadsheet` — Create an Excel (.xlsx) spreadsheet. The
 - `create_task` — Create a quick todo item on the user
 - `delete_calendar_event` — Delete a calendar event by event ID.
@@ -78,10 +78,11 @@ Auto-generated from the desktop tool manifest; regenerate when tools change.
 - `voice_generate` — Generate TTS audio from text using configured provider (ElevenLabs, Azure, Groq PlayAI, OpenAI, or Google TTS). Saves MP3 to ~/.skales-data/studio/audio/. Returns audioBase64 for immediate playback.
 - `write_file` — Write content to a file. Auto-creates parent dirs. Save to files/documents/, files/images/, etc.
 
-## file (8)
+## file (9)
 
 - `copy_file` — Copy a file to a new location. Uses native Node.js fs. Prefer this over execute_command for file copies on macOS.
 - `create_directory` — Create a directory (and any missing parent directories). Uses native Node.js fs with { recursive: true } - nested paths like
+- `extract_zip` — Extract a .zip archive into a folder using native unzipping (no shell). By default extracts into a new folder named after the archive, next to it.
 - `drive_download` — Download and read the text content of a file from Google Drive.
 - `drive_list_files` — List recent files in Google Drive, optionally filtered by a Drive query.
 - `drive_search` — Search Google Drive for files matching a text query.

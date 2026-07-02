@@ -51,6 +51,11 @@ are required; everything else is optional and omitted fields simply do not apply
   0.3 for tool turns and restored for prose. This never removes a tool; it only
   shapes how reliably the call is emitted.
 - Only set `maxTools` / `compactionLevel` for models that genuinely struggle
+- Careful with `maxTools`: the cap keeps core tools by tier, but dynamically
+  registered tools (MCP servers, `mcp_<server>_*`) rank low and are dropped
+  first - a capped profile can silently disable connected MCP backends (e.g.
+  media generation in Studio Flow). Prefer no cap unless the model truly
+  chokes on large tool sets.
   with a large tool set or prompt; do not throttle a capable model.
 - Keep `promptHint` to one or two sentences; it is a nudge, not a manual.
 - Use `toolHints` to fix a specific name mismatch: a map of Skales tool name ->
