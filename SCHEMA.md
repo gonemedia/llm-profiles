@@ -57,7 +57,9 @@ are required; everything else is optional and omitted fields simply do not apply
   media generation in Studio Flow). Prefer no cap unless the model truly
   chokes on large tool sets.
   with a large tool set or prompt; do not throttle a capable model.
-- Keep `promptHint` to one or two sentences; it is a nudge, not a manual.
+- Keep `promptHint` under 600 characters: Skales clamps the field to 600 on
+  import, so anything past that is silently cut mid-sentence. Put the most
+  important guidance first. It is a nudge, not a manual.
 - Use `toolHints` to fix a specific name mismatch: a map of Skales tool name ->
   a short explanation in the model's own terms. Set it when a model natively
   reaches for a different name (e.g. emits `create_file` when Skales' tool is

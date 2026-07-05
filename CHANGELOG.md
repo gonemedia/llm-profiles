@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.4.6 - 2026-07-05
+
+- **Anti-loop guidance in every profile, and every hint now fits the clamp.**
+  A live run showed the expensive failure mode of weaker agents: a simple
+  knowledge question escalated into multi-page fetches, repeated identical
+  shell commands over cached files, and an aborted run with no visible answer.
+  Every `promptHint` now leads with four rules against exactly that: answer
+  stable knowledge directly (at most one search to verify current facts), never
+  repeat a tool call with identical arguments, stop and write the answer once
+  the material covers the question (never end a turn with only tool calls), and
+  read pages with `extract_web_text` instead of grepping fetched files.
+- **Hints trimmed to under 600 characters.** Skales clamps `promptHint` to 600
+  characters on import; every profile's hint had grown past that, so the tail
+  (including the shared voice guidance) was silently cut mid-sentence for
+  synced users. Each hint was rewritten to fit, keeping the per-model essence
+  (DeepSeek V4 chunked writes, Kimi decisiveness, GLM working-state trust,
+  Devstral edit-and-verify, one-tool-at-a-time for small models). Documented in
+  SCHEMA.md.
+
 ## 0.4.5 - 2026-07-02
 
 - **Authoring turns keep full creative sampling.** Skales v12.1.0 marks Flow
