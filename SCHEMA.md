@@ -27,6 +27,9 @@ are required; everything else is optional and omitted fields simply do not apply
     "write_file": "Writes or creates a file. There is no create_file; use write_file.",
     "execute_command": "Runs one shell command, not for reading or writing files."
   },
+  "capabilities": {                    // optional capability overrides
+    "vision": true                     // mark the model image-capable (or false) when detection is wrong
+  },
   "notes": "Why this profile exists."  // optional, human-only; ignored at runtime
 }
 ```
@@ -72,6 +75,11 @@ are required; everything else is optional and omitted fields simply do not apply
 - Keys must be exact Skales tool names. You do not have to know them by heart:
   the full catalogue is in [TOOLS.md](./TOOLS.md), and the in-app `/profiles`
   page lists them too. You only need hints for the few a model gets wrong.
+- `capabilities.vision` (Skales 12.2.0+) overrides image-capability detection for
+  the matched model: `true` marks it image-capable, `false` marks it text-only.
+  Set it only to correct a wrong or lagging built-in detection - leave it out to
+  let Skales decide (a local Ollama daemon's own capabilities array wins first,
+  then the built-in name list). Older clients ignore the field.
 
 ## Safety
 

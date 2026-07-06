@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.7 - 2026-07-06
+
+- **New optional `capabilities.vision` field.** A profile can now override
+  image-capability detection for the matched model: `true` marks it
+  image-capable, `false` text-only. Skales 12.2.0+ reads it (a local Ollama
+  daemon's own capabilities array still wins first, then this override, then the
+  built-in name list); older clients ignore it. Documented in SCHEMA.md.
+
 ## 0.4.6 - 2026-07-05
 
 - **Anti-loop guidance in every profile, and every hint now fits the clamp.**
