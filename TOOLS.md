@@ -8,7 +8,7 @@ example, teaching a model that emits `create_file` that the real tool is
 
 Auto-generated from the desktop tool manifest; regenerate when tools change.
 
-## core (67)
+## core (68)
 
 - `analyze_image` — Analyze an attached image via vision AI. Describe, OCR, identify objects.
 - `check_capabilities` — Audit available integrations and tools. Returns active capabilities.
@@ -30,6 +30,7 @@ Auto-generated from the desktop tool manifest; regenerate when tools change.
 - `empty_trash` — Permanently delete ALL emails in Trash. REQUIRES USER APPROVAL. Cannot be undone.
 - `enable_skill` — Enable a Skales skill. ALWAYS confirm with user first. Use exact skill ID.
 - `execute_command` — Execute a shell command. Uses PowerShell on Windows, bash on macOS/Linux. Working directory is the workspace.
+- `run_script` — Write code to a file and run it with the right interpreter (python, node, bash, powershell). Prefer it over execute_command for anything multi-line or with quotes/braces.
 - `extract_web_text` — Extract the text content from a web page (strips HTML tags). Use this when the user asks to read, summarize, or analyze a website.
 - `fetch_skales_docs` — Search Skales docs for features and setup. Only for Skales-specific questions.
 - `fetch_web_page` — Fetch the HTML content of a web page. Use this when the user asks to open, visit, or look at a website.
@@ -96,15 +97,17 @@ Auto-generated from the desktop tool manifest; regenerate when tools change.
 - `get_directions` — Get directions between two locations via Google Maps.
 - `search_places` — Search Google Maps for places and businesses. Requires Places API key.
 
-## browser (7)
+## browser (9)
 
-- `browser_click` — Click an element on the browser page. Describe in plain language.
+- `browser_open` — Open URL in a browser (headless by default). Start here. Returns a compact page tree with `[ref_N]` ids.
+- `browser_read_page` — Read the current page as a compact text tree: interactive elements (each tagged `[ref_N]`) plus headings and text. No Vision call, cheap. Flow: browser_read_page -> browser_click "ref_N" -> browser_read_page again. Refs are invalidated on navigation.
+- `browser_click` — Click an element. Prefer a ref id from browser_read_page (e.g. "ref_12") for a deterministic click; a plain-language description works as a fallback.
+- `browser_type` — Type text into a browser input. Pass a ref from browser_read_page to focus that field first, or click first and type into the focused field.
+- `browser_key` — Press a keyboard key in the browser (e.g. Enter, Tab, Escape).
+- `browser_scroll` — Scroll the current browser page (down/up, or jump to bottom/top).
+- `browser_screenshot` — Screenshot with Vision AI description. Use only for image-heavy pages; browser_read_page is the cheap default.
+- `browser_login` — Open a VISIBLE browser window at a URL so the user signs in by hand; the login persists to the browser profile and later headless browsing reuses it.
 - `browser_close` — Close the browser session and clean up. Always call this when done browsing.
-- `browser_key` — Press a keyboard key in the browser (e.g.
-- `browser_open` — Open URL in headless browser. Screenshots + Vision AI. Start here.
-- `browser_screenshot` — Screenshot current browser page with Vision AI description.
-- `browser_scroll` — Scroll the current browser page. Use direction=
-- `browser_type` — Type text into focused browser input. Use browser_click first to focus.
 
 ## automation (3)
 

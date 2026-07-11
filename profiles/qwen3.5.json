@@ -12,7 +12,7 @@
   "toolCallStyle": "native",
   "toolHints": {
     "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it.",
-    "edit_file": "Edits an existing file by replacing an exact piece of text (old_string to new_string). There is no str_replace, apply_patch, patch_file, or sed; use edit_file. old_string must be unique, or set replace_all.",
+    "edit_file": "Edits an existing file by replacing an exact piece of text (old_string to new_string). There is no str_replace, apply_patch, patch_file, or sed; use edit_file. old_string must be unique, or set replace_all. If the edit is refused because the file was not read, call read_file on it and retry the edit once.",
     "git_status": "Shows git status (branch + changed files) of the bound folder. Prefer it over running git in execute_command.",
     "git_diff": "Shows the git diff of the bound folder. Prefer it over git in execute_command.",
     "git_commit": "Stages all changes and commits in the bound folder with a message. No need to run git add/commit in the shell; use git_commit.",
@@ -20,7 +20,7 @@
     "test_run": "Runs the project tests in the bound folder (auto-detects npm/jest/vitest, pytest, cargo, go). Prefer it over guessing the test command.",
     "read_file": "Reads a file's contents. There is no cat, open_file, or view_file; use read_file.",
     "list_directory": "Lists files and folders in a directory. There is no ls, list_files, or dir; use list_directory.",
-    "execute_command": "Runs one shell command. There is no bash, shell, run_command, terminal, or exec tool; use execute_command. Do not use it to read or write files; use read_file and write_file.",
+    "execute_command": "Runs one shell command. There is no bash, shell, run_command, terminal, or exec tool; use execute_command. Do not use it to read or write files; use read_file and write_file. For anything multi-line or containing quotes/braces, use run_script instead.",
     "search_web": "Searches the web. There is no google, web_search, or browse tool; use search_web.",
     "fetch_web_page": "Fetches a page by URL as HTML. There is no open_url, visit, navigate, or curl; use fetch_web_page, or extract_web_text for just the readable text.",
     "extract_web_text": "Gets the readable text of a web page. There is no scrape or read_url; use extract_web_text.",
@@ -41,7 +41,9 @@
     "generate_image": "Generates an image from a text prompt. There is no create_image, text_to_image, dalle, or imagine; use generate_image.",
     "ask_user": "Asks the user a question and waits for the answer. There is no ask_human, request_input, or human_feedback; use ask_user.",
     "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
-    "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos."
+    "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos.",
+    "run_script": "Writes code to a file and runs it with the right interpreter (python, node, bash, powershell). Use it for anything multi-line or with tricky quoting instead of squeezing code through execute_command.",
+    "browser_read_page": "Reads the current browser page as a cheap text tree; click and type via its ref ids (browser_click \"ref_12\"). Re-read after navigation. Use browser_screenshot only for image-heavy pages."
   },
   "notes": "Qwen3.5: vendor guidance moved to temperature 1.0, top_p 0.95, top_k 20 (HF Qwen3.5 model cards). Strong native tool-caller. More specific pattern, so it outranks the generic qwen profile (which keeps the Qwen2.5/Qwen3 non-thinking params).",
   "promptHint": "Answer stable knowledge (recipes, definitions, how-tos) from what you know; at most ONE search_web for current facts, then answer. Never repeat a tool call with the same arguments - reuse its result. Once your material covers the question, stop calling tools and write the answer; never end a turn with only tool calls. Read pages with extract_web_text, never grep fetched files. When you announce a tool or action, make that call in the same message; never say 'let me...' and stop. Use the exact tool names provided."

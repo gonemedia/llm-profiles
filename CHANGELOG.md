@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.4.8 - 2026-07-12
+
+- **Tool hints aligned with the Skales 12.3.0 harness.** All 15 profiles:
+  `execute_command` now points multi-line or quote-heavy code to the new
+  `run_script` tool (writes the code to a file and runs it with the right
+  interpreter), and a `run_script` hint was added. `edit_file` gained a
+  one-line recovery instruction for the new read-before-edit gate (read the
+  file, retry the edit once). New `browser_read_page` hint teaches the
+  structured browser flow: read the page as a ref-tagged text tree, click by
+  ref id, re-read after navigation; screenshots only for image-heavy pages.
+- **devstral:** promptHint now says "read_file first, then edit_file with
+  exact old text", matching the read-before-edit gate.
+- **TOOLS.md:** browser section rewritten for the 12.3.0 structured flow
+  (browser_read_page, ref-based clicks, browser_login); run_script added.
+
 ## 0.4.7 - 2026-07-06
 
 - **New optional `capabilities.vision` field.** A profile can now override
