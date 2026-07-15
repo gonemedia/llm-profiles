@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.9 - 2026-07-15
+
+- **GLM: on-demand tool loading unblocked.** The GLM profile gains a
+  `load_tools` tool hint and a prompt-hint line: unlock extra tool groups by
+  CALLING load_tools, never by narrating it in text. Pairs with the Skales
+  12.4.0 harness change that lets GLM 5.x use on-demand tool retrieval again
+  (the narrate-instead-of-call behavior was observed on the GLM-4 generation).
+
+
 ## 0.4.8 - 2026-07-12
 
 - **Tool hints aligned with the Skales 12.3.0 harness.** All 15 profiles:
