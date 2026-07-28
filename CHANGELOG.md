@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.5.0 - 2026-07-29
+
+- **A coding layer on every profile.** All 15 profiles now carry per-tool
+  guidance for a coding session, not just for a chat. The rules a coding loop
+  actually needs, in the tools that enforce them: read a file before changing
+  it (`read_file`), change it with an exact-string `edit_file` rather than
+  rewriting the whole thing (`edit_file`, `write_file`), run the check and
+  report what it printed rather than claiming it passed (`test_run`), keep the
+  checklist and continue from the next unchecked item (`update_todos`), read
+  your own diff before calling a task done (`git_diff`).
+- **Long-running commands.** The `execute_command` hint now points anything
+  that does not end by itself - a dev server, a watcher, a long build - at
+  `run_in_background` plus `read_shell_output`, phrased conditionally ("if it
+  offers run_in_background") so an older Skales without those still reads a
+  true sentence.
+- **Per family, what that family gets wrong in a coding loop:**
+  - **nemotron:** never re-emit a whole file for a two-line change; prefer the
+    real tools over shelling out to cat/sed/git. Prompt hint gains the
+    read-edit-run line.
+  - **small, phi, gemma:** do not rewrite a file you have not read in full, and
+    never write "tests pass" unless the tool printed it. gemma additionally:
+    emit the tool call, do not print the edit as a code block and stop.
+  - **glm, kimi:** decide the next step and take it - a long task is finished by
+    acting on one item at a time, not by planning all of them (the
+    reasoning-exhaustion failure).
+  - **deepseek, deepseek-v4:** send the edit as a real tool call, never as
+    tool-markup inside the answer text (the DSML leak).
+- Prompt hints stay inside the 600-character budget that released clients
+  enforce; where a family's extra line would have crossed it, the line went to
+  the tool hints instead.
+
 ## 0.4.9 - 2026-07-15
 
 - **GLM: on-demand tool loading unblocked.** The GLM profile gains a
