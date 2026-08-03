@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.1 - 2026-08-03
+
+- **Qwen: text-channel tool calls forbidden explicitly.** A user's qwen3:14b
+  (custom runtime) emitted `<<TOOL_CALLS>> ... <<END_TOOL_CALLS>>` as plain
+  text, so the call never ran and the raw markup leaked into the visible
+  answer (and onward into a sent email). The Qwen promptHint now leads with:
+  native tool-call channel only, never text, naming the observed dialects.
+
 ## 0.5.0 - 2026-07-29
 
 - **A coding layer on every profile.** All 15 profiles now carry per-tool
