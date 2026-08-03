@@ -92,5 +92,6 @@
       "file": "profiles/small.json",
       "modelPattern": "*b"
     }
-  ]
+  ],
+  "libraryVersion": "0.5.2"
 }

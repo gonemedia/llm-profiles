@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.2 - 2026-08-03
+
+- **Squad discipline on every profile.** In multi-agent (team/squad) runs,
+  local models were letting the coordinator's task brief override the rules
+  and output contract in their own system prompt (skalesapp/skales#237,
+  reproduced twice). Every promptHint now ends with the precedence rule:
+  the brief says WHAT, the system prompt says HOW, and on conflict the
+  system prompt wins, format contract included.
+
 ## 0.5.1 - 2026-08-03
 
 - **Qwen: text-channel tool calls forbidden explicitly.** A user's qwen3:14b
