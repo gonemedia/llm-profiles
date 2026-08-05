@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.5.3 - 2026-08-05
+
+- **Qwen 3.6 gets a profile of its own.** Two reasons. The pattern:
+  `qwen3.5` does not match qwen3.6, so the model fell through to the
+  generic Qwen profile and ran on Qwen2.5-era sampling. The dialect:
+  local builds (`qwen3.6-local` on Ollama) write tool calls as a bare
+  typed JSON object (`{"type":"shell","command":"..."}`) instead of
+  native tool_calls, so the user saw the raw object as the answer
+  (skalesapp/skales dashboard report, 2026-08-05). The promptHint names
+  that exact shape and the real tool behind it; Skales additionally
+  recovers the shape at parse time, the profile stops it at the source.
+
 ## 0.5.2 - 2026-08-03
 
 - **Squad discipline on every profile.** In multi-agent (team/squad) runs,
