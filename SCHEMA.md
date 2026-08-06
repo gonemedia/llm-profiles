@@ -28,7 +28,9 @@ are required; everything else is optional and omitted fields simply do not apply
     "execute_command": "Runs one shell command, not for reading or writing files."
   },
   "capabilities": {                    // optional capability overrides
-    "vision": true                     // mark the model image-capable (or false) when detection is wrong
+    "vision": true,                    // mark the model image-capable (or false) when detection is wrong
+    "fixedTemperature": true,          // the endpoint pins its temperature and rejects any value
+    "longThinking": true               // the model is silent for long stretches before it answers
   },
   "notes": "Why this profile exists."  // optional, human-only; ignored at runtime
 }
@@ -80,6 +82,18 @@ are required; everything else is optional and omitted fields simply do not apply
   Set it only to correct a wrong or lagging built-in detection - leave it out to
   let Skales decide (a local Ollama daemon's own capabilities array wins first,
   then the built-in name list). Older clients ignore the field.
+- `capabilities.fixedTemperature` (Skales 12.7.0+) marks an endpoint that PINS
+  its temperature and rejects a request carrying one at all (every current Kimi
+  model answers `400 invalid temperature: only 1 is allowed for this model`).
+  `true` withholds the field, `false` sends it even where a built-in rule would
+  withhold it. Leave it out to let the built-in model rule decide.
+- `capabilities.longThinking` (Skales 12.7.0+) marks a model that spends long
+  stretches producing nothing visible before it answers. Skales otherwise guesses
+  this from the model id, and a name carrying none of the usual words (nvidia's
+  nemotron-3-ultra is the case that prompted the field) runs on budgets meant for
+  a fast model: the stream is declared stalled mid-thought. Set `true` for a slow
+  silent thinker, `false` to say explicitly that a name-matching model is not one.
+  Leave it out to let the name rule decide. Older clients ignore the field.
 
 ## Safety
 

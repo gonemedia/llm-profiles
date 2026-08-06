@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.5.5 - 2026-08-06
+
+- **Nemotron is declared a long silent thinker.** A user reported a
+  nemotron-3-ultra turn arriving as a finished answer when it had actually
+  been cut off. The cause was upstream of any profile: Skales decides how
+  long a model may stay silent by looking at its NAME, and
+  `nvidia/nemotron-3-ultra` contains none of the words that rule looks for,
+  so it ran on the budgets of a fast model. `capabilities.longThinking` is
+  the field that lets a profile answer that question with data instead, and
+  this profile sets it. The next model of this class is a profile push.
+- `capabilities.fixedTemperature` is documented in SCHEMA.md as well. It has
+  been read by Skales since the Kimi endpoints started rejecting the field,
+  but it was never written down here, and until 12.7.0 an imported profile
+  could not actually carry it.
+
 ## 0.5.4 - 2026-08-06
 
 - **Gemma 4 gets a profile of its own, written from a measurement.** The
