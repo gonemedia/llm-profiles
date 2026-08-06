@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.5.4 - 2026-08-06
+
+- **Gemma 4 gets a profile of its own, written from a measurement.** The
+  report behind it said Gemma refuses every tool on Ollama, so the model
+  was pulled and asked: gemma4 emits native `tool_calls` in every
+  combination tried (five tools and fifteen, vendor sampling and the
+  generic Gemma profile's). The family assumption does not hold for this
+  release, and nothing in the profile pushes it towards writing calls as
+  text. What IS wrong is the same shape as the Qwen 3.5 / 3.6 split:
+  `gemma` matches gemma4 by substring and hands it Gemma-2-era sampling
+  (temperature 0.3) plus a compaction floor, while the model card asks for
+  temperature 1.0, top_p 0.95, top_k 64 and the model carries a 131k
+  window. Vision is declared, so the capability flag says so.
+- Given no tools channel at all, gemma4 falls back to a Python-style call
+  (`planner_create_task(title="...", due="...")`). Skales recovers that
+  shape at parse time now, as a safety net for endpoints that drop the
+  field; the profile is what keeps it from being needed.
+
 ## 0.5.3 - 2026-08-05
 
 - **Qwen 3.6 gets a profile of its own.** Two reasons. The pattern:

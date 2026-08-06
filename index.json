@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-05",
+  "updated": "2026-08-06",
   "profiles": [
     {
       "id": "deepseek",
@@ -67,6 +67,12 @@
       "name": "Gemma",
       "file": "profiles/gemma.json",
       "modelPattern": "gemma"
+    },
+    {
+      "id": "gemma4",
+      "name": "Gemma 4",
+      "file": "profiles/gemma4.json",
+      "modelPattern": "gemma4"
     },
     {
       "id": "llama",
