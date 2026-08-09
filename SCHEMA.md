@@ -22,7 +22,8 @@ are required; everything else is optional and omitted fields simply do not apply
   "maxTools": 16,                      // optional: cap the offered tool set
   "compactionLevel": 1,                // optional: 0 full, 1 compact, 2 minimal
   "promptHint": "Call one tool at a time.", // optional: prepended to the system prompt
-  "toolCallStyle": "native",           // optional advisory: native | json | xml
+  "toolCallStyle": "native",           // native | json | xml; json/xml turns on
+                                       // Skales' text recovery for fenced blocks
   "toolHints": {                       // optional: per-tool notes in THIS model's terms
     "write_file": "Writes or creates a file. There is no create_file; use write_file.",
     "execute_command": "Runs one shell command, not for reading or writing files."
@@ -74,6 +75,15 @@ are required; everything else is optional and omitted fields simply do not apply
   not end a turn on tool calls alone, say what a failed tool actually reported
   instead of inventing a result, and in a squad run let the system prompt
   outrank the coordinator's brief. Family-specific guidance leads; these close.
+- `toolCallStyle` is not advisory any more (Skales 12.7.2+): `json` or `xml` is
+  the statement that this model writes tool calls as TEXT instead of using the
+  native tool field, and it switches on the fenced-block recovery lane that is
+  otherwise reserved for local and custom endpoints - so a call written that way
+  still runs instead of leaking into the chat as the answer. `native`, and no
+  profile at all, leave that lane off. Set `json`/`xml` only for a model you have
+  seen do it: the lane costs a false-positive risk (a fenced example a user asked
+  for can read like a call), which is why it is not on for everyone. Older
+  clients ignore the field.
 - Use `toolHints` to fix a specific name mismatch: a map of Skales tool name ->
   a short explanation in the model's own terms. Set it when a model natively
   reaches for a different name (e.g. emits `create_file` when Skales' tool is

@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.5.8 - 2026-08-09
+
+Documentation only: no profile changed, so nothing about how a model is driven
+changed either. What changed is that three files stopped describing a library
+that no longer exists.
+
+- **`toolCallStyle` was documented as "optional advisory" while it had a
+  consumer.** As of Skales 12.7.2 the field decides something: `json` or `xml`
+  is the profile author's statement that this model writes tool calls as TEXT
+  instead of using the native tool field, and that switches on the fenced-block
+  recovery lane which is otherwise reserved for local and custom endpoints - so
+  such a call still runs instead of leaking into the chat as the answer.
+  `native`, and no profile at all, leave the lane off. "Advisory" told a
+  contributor the field was decoration, which is the kind of note that survives
+  for years and produces profiles that set it at random. SCHEMA.md now says what
+  it does, including the reason the lane is not simply on for everyone: it costs
+  a false-positive risk, because a fenced example a user asked for can read like
+  a call.
+- **The README profile table listed 15 profiles out of 25.** Ten families were
+  missing from the one page that tells a reader what the library covers -
+  GigaChat, Hunyuan (both namespaces), Magistral, Codestral, Mixtral, abab,
+  Qwen 3.6 and both Gemma 4 spellings, i.e. everything added in 0.5.3 through
+  0.5.7. The table is complete now, grouped by family rather than by the order
+  entries were appended, and it states outright that a profile without sampling
+  params is carrying the behaviour layer on purpose - that is a decision this
+  library keeps making, not an unfinished file.
+- **CONTRIBUTING.md sent contributors to a settings path that moved, and never
+  mentioned the four lines a profile is not finished without.** LLM Profiles has
+  its own card in Skales' settings (and a /profiles page); it has not been a
+  sub-item of the AI Provider card for some time. The behavioural lines were
+  written down in SCHEMA.md in 0.5.7 but not in the file someone actually follows
+  step by step when writing their first profile. Added there too, with the 1500
+  character bound and a step on checking a new pattern against ids that are not
+  yours - anchored matching, specificity by literal characters, and the two
+  collisions this library has already paid for (`magistral` inside `mistral`,
+  `gemma-4` not matching `gemma4`).
+- `index.json` moves to 0.5.8 with the changelog. Nothing else in it changed:
+  same 25 profiles, same patterns, same params.
+
 ## 0.5.7 - 2026-08-09
 
 - **The honesty line is now on every profile, not just the one it was written

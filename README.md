@@ -15,7 +15,7 @@ Built for [Skales](https://skales.app), usable as a plain data format anywhere.
 - **compactionLevel** - prompt compaction floor (0 full, 1 compact, 2 minimal).
 - **promptHint** - an instruction prepended to the system prompt: per-model guidance (decisiveness, grounding) plus the library's shared voice rules (act in the same turn you announce a tool, answer like a colleague, no filler or fake knowledge-cutoff disclaimers, check context before asking).
 - **params** - sampling: `temperature`, `top_p`, `top_k`.
-- **toolCallStyle** - advisory: `native` | `json` | `xml`.
+- **toolCallStyle** - `native` | `json` | `xml`: what the model does with tool calls. `json`/`xml` says it writes them as text, which switches on the host's fenced-block recovery so such a call still runs instead of showing up as the answer.
 - **toolHints** - per-tool notes that teach a model your exact tool names (keyed by the real tool name), for models that reach for another framework's names like `create_file` or `bash`. Look the names up in [TOOLS.md](./TOOLS.md).
 
 Frontier models (Claude, GPT, Gemini) intentionally have **no profile** here and
@@ -23,22 +23,38 @@ run unchanged. Profiles target the models that benefit: weaker, local, or quirky
 
 ## Profiles in this library
 
+All 25 profiles, grouped by family (`index.json` keeps them in the order they were
+added, which is the manifest's job, not a reading order). A profile with no sampling
+params carries the behaviour layer only: one tool at a time, no repeated call,
+exact tool names, say what a failed tool reported, and the system prompt outranks
+a squad brief. That is deliberate - this repo does not ship numbers it cannot cite.
+
 | Profile | Matches | Why |
 |---|---|---|
 | DeepSeek | `deepseek` | V3-era / R1 / local distills: low temp + explicit tool-name hints for reliable multi-tool calling. |
 | DeepSeek V4 | `deepseek-v4` | Agent-grade (V4 / Flash / Pro); vendor params (temp 1.0, top_p 1.0), no tool cap (it drives the full catalogue). |
-| Qwen | `qwen` | Qwen2.5 / Qwen3: strong native tool-caller; vendor non-thinking params. |
+| Qwen | `qwen` | Qwen2.5 / Qwen3: strong native tool-caller; vendor non-thinking params (temp 0.7, top_p 0.8, top_k 20). Also where `qwen3-max` and `qwen3.7` land, and correctly so. |
 | Qwen 3.5 | `qwen3.5` | Vendor params moved to temp 1.0, top_p 0.95, top_k 20. |
+| Qwen 3.6 | `qwen3.6` | `qwen3.5` does not match 3.6, so it fell back to Qwen2.5-era params. Same vendor numbers as 3.5, plus the local dialect (a bare typed JSON object instead of a native call) named in the hint. |
 | MiniMax | `minimax` | Agentic tool-caller (M2.7 / M3); vendor params (temp 1.0, top_p 0.95, top_k 40), no tool cap (it drives the full catalogue). |
+| MiniMax abab | `abab` | The older MiniMax namespace, including `abab6.5s-chat`, the provider's recommended pick: no `abab` id contains `minimax`, so the default model ran with no profile. No params - the M2.7/M3 cards say nothing about abab. |
 | GLM | `glm` | Solid tool-caller (4.x / 5); GLM-5 agentic-eval params (temp 0.7, top_p 0.95). |
-| Kimi | `kimi` | Over-deliberates; instant-mode params (temp 0.6, top_p 0.95) + hint to act decisively. |
+| GigaChat | `gigachat` | Sber's family: names tools that are not offered (`web_search` for `search_web`) and sometimes writes the call as XML in its text. Exact-name `toolHints`, native calls only, deterministic tool turns (toolParams temp 0.2). |
+| Kimi | `kimi` | Over-deliberates; instant-mode params + hint to act decisively. Note the endpoint pins its temperature and rejects ours, so only `top_p` lands. |
 | Mistral | `mistral` | Low vendor temp; good for structured output. |
+| Magistral | `magistral` | Mistral's reasoning line. Its ids contain `mistral`, so a long-chain model was being handed Mistral Small's 0.15; its card says top_p 0.95, temp 0.7, word for word. The longer literal now wins. |
 | Devstral | `devstral` | Mistral's 24B coding/agent model (matched no profile before); low deterministic temp + a coding-agent hint (edit precisely, verify with tests). |
-| Gemma | `gemma` | Lower temp + compact prompt for reliable tool use. |
+| Codestral | `codestral` | `codestral` contains no `mistral`, so the code model matched nothing. No params - Mistral publishes none for it, and inheriting the family's 0.15 is the guess this repo does not make. |
+| Mixtral | `mixtral` | Spelled with an x, so a bare Ollama `mixtral` matched nothing while `mistralai/Mixtral-8x22B` matched through the vendor prefix. No params, same reason as Codestral. |
+| Gemma | `gemma` | Lower temp + compact prompt for reliable tool use (Gemma 2 era). |
+| Gemma 4 | `gemma4` | Measured, not inherited: Gemma 4 calls tools natively, and the card asks for temp 1.0, top_p 0.95, top_k 64 with a 131k window - the family profile's 0.3 and compaction floor were pure loss. |
+| Gemma 4 (vendor id) | `gemma-4` | Google's own ids are hyphenated (`google/gemma-4-27b-it`), which `gemma4` does not match. A deliberate twin, not a variant. The pattern is a literal, because a glob would also swallow `gemma-3-4b-it`. |
+| Hunyuan Hy3 | `hy3` | Tencent's flagship and the default Skales selects for the Hunyuan provider. Its ids contain no `hunyuan` substring at all. Sampling from the official vLLM recipe (temp 0.9, top_p 1.0). |
+| Hunyuan (Tencent) | `hunyuan` | The other Hunyuan namespace on the legacy host (`hunyuan-turbos`, `-vision`, `-a13b`), which answers to neither `hy3` nor anything else. No params - the A13B card recommends none. |
 | Llama | `llama` | Vendor params. |
+| Nemotron | `nemotron` | NVIDIA Nemotron-3 (ultra / nano); middle-ground sampling, and `longThinking` so a long silent stretch is not read as a stalled stream. |
 | Phi | `phi` | Verbose tool-caller; low temp + compact prompt. |
 | GPT-OSS | `gpt-oss` | Strong native tool-caller for its class; decisive turns. |
-| Nemotron | `nemotron` | NVIDIA Nemotron-3 (ultra / nano); middle-ground sampling so it gets the same per-model tuning as every other family. |
 | Small model | `*b` (<= ~9B ids) | Compact prompt for tiny models (tool set is trimmed by the host's local-model setting, not the profile). |
 
 ## How Skales uses them
