@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.5.6 - 2026-08-09
+
+- **GigaChat gets a profile, written from a real-key report.** On some turns
+  the model skips the native tool_calls field and writes the call into its
+  text as Anthropic-style XML - and it names tools that were never offered
+  (`web_search` for `search_web`), so the recovered call is dropped by design
+  and the raw markup becomes the visible answer (skalesapp/skales#256, three
+  failure shapes on GigaChat-3-Ultra, Gemini identical setup unaffected). The
+  profile hammers exact tool names per hint and per prompt, demands the native
+  calling mechanism, and adds an honesty line for the third finding: under a
+  strong persona the model answered a failed tool with invented architecture
+  instead of the error. A mitigation, said so in the notes - the host-side
+  near-miss name resolution is a Skales fix, not a profile.
+
 ## 0.5.5 - 2026-08-06
 
 - **Nemotron is declared a long silent thinker.** A user reported a

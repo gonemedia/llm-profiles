@@ -1,0 +1,23 @@
+{
+  "id": "gigachat",
+  "name": "GigaChat",
+  "match": {
+    "modelPattern": "gigachat"
+  },
+  "toolParams": {
+    "temperature": 0.2
+  },
+  "toolCallStyle": "native",
+  "toolHints": {
+    "search_web": "Searches the web. There is no web_search, google, or browse tool; the exact name is search_web. Use the native function-calling mechanism to call it - never write the call as XML or text in your answer.",
+    "extract_web_text": "Gets the readable text of a web page. There is no scrape or read_url; use extract_web_text.",
+    "fetch_web_page": "Fetches a page by URL as HTML. There is no open_url, visit, navigate, or curl; use fetch_web_page.",
+    "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change part of an existing file, prefer edit_file.",
+    "edit_file": "Edits an existing file by replacing an exact piece of text. There is no str_replace, apply_patch, or sed; use edit_file.",
+    "read_file": "Reads a file's contents. There is no cat, open_file, or view_file; use read_file.",
+    "execute_command": "Runs one shell command. There is no bash, shell, or terminal tool; use execute_command.",
+    "ask_user": "Asks the user a question and waits for the answer. There is no ask_human or request_input; use ask_user."
+  },
+  "notes": "GigaChat 2/3 family (Sber), reached through its OpenAI-compatible endpoint. Two measured behaviours drive this profile (skalesapp/skales#256, real-key report on GigaChat-3-Ultra). First: on some turns the model skips the native tool_calls field and writes the call into its text as Anthropic-style invoke/parameter XML - the host's text-recovery parser handles that dialect, so the markup itself is survivable. Second, and the actual damage: it names tools that are not in the offered set (web_search for search_web), and a recovered call with an unknown name is dropped by design - nothing runs, and the raw markup or a stripped fragment becomes the visible answer. The toolHints therefore hammer exact names, and the promptHint says both rules out loud. Third: under a strong persona the model answered a failed tool call by inventing plausible internal architecture instead of relaying the error; the honesty line at the end of the promptHint is for that. This profile is a mitigation - the host-side fix (near-miss tool-name resolution, catching an unexecuted call before it renders) ships with the next Skales release.",
+  "promptHint": "Use ONLY the tools offered to you, with their EXACT names - the web search tool is search_web, there is no web_search. Always call tools through the native function-calling mechanism; NEVER write a tool call as XML, tags, or text in your answer - text is for the user, function calls are for tools. Call exactly one tool at a time and wait for its result. Never repeat a tool call with the same arguments - reuse its result. Once your material covers the question, stop calling tools and write the answer; never end a turn with only tool calls. If a tool fails, tell the user what the error said - never invent results, internal systems, or architecture that the tools did not report. If unsure a tool exists, call check_capabilities and use the exact name it returns. In a team or squad run, the task brief tells you WHAT to do; the rules and output format in your system prompt tell you HOW. When they conflict, your system prompt wins."
+}

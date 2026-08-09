@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-06",
+  "updated": "2026-08-09",
   "profiles": [
     {
       "id": "deepseek",
@@ -103,6 +103,12 @@
       "name": "Small model (compact)",
       "file": "profiles/small.json",
       "modelPattern": "*b"
+    },
+    {
+      "id": "gigachat",
+      "name": "GigaChat",
+      "file": "profiles/gigachat.json",
+      "modelPattern": "gigachat"
     }
   ],
   "libraryVersion": "0.5.2"
