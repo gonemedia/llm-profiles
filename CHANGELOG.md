@@ -1,5 +1,65 @@
 # Changelog
 
+## 0.5.7 - 2026-08-09
+
+- **The honesty line is now on every profile, not just the one it was written
+  for.** 0.5.6 added it to GigaChat because that model answered a failed tool
+  call by inventing plausible internal architecture instead of relaying the
+  error. Nothing about that failure is a GigaChat trait: a model that cannot
+  see why a tool failed will narrate something, and the profile layer was
+  telling seventeen other families nothing about it. Three of them (Gemma,
+  Phi, small models) already forbade claiming a file changed or a test passed
+  without a tool result, which is the other half of the same rule and not a
+  substitute - one bans inventing success, the other requires reporting the
+  failure. All eighteen now carry both halves.
+- **Seven families that Skales itself offers matched no profile at all.** Not
+  guessed at: every id below is in the app's own curated model list, and each
+  was run through the real resolver rather than reasoned about.
+  - `hy3` and `hy3-preview`, the flagship Skales selects by default for the
+    Hunyuan provider, contain no `hunyuan` substring, so no family profile
+    could ever have reached them. Sampling from the official vLLM recipe for
+    tencent/Hy3-preview: temperature 0.9, top_p 1.0, 256K context, hy_v3 tool
+    parser.
+  - `hunyuan-turbos-latest`, `hunyuan-vision` and `hunyuan-a13b` are the other
+    Hunyuan namespace, served by the legacy host, and they answer to neither
+    `hy3` nor anything else. The A13B card documents the window and native
+    tool calling but recommends no sampling values, so this profile ships none.
+  - `magistral` was the reverse problem: an id like mistralai/magistral-medium
+    contains `mistral`, so a long-chain reasoning model was being handed the
+    Mistral Small setting of temperature 0.15. Its card says the opposite,
+    word for word: top_p 0.95, temperature 0.7. The longer literal now wins.
+  - `codestral-latest` and a bare `mixtral` matched nothing, for the reason
+    Devstral once did not: neither string contains `mistral`. Mixtral is the
+    sharper case, because the same weights DO match through a vendor prefix
+    (mistralai/Mixtral-8x22B), so the bare Ollama id was the only one running
+    untuned. Mistral publishes no per-model sampling for either, so both carry
+    the behaviour layer and no numbers.
+  - `abab6.5s-chat` is the model Skales recommends on the MiniMax provider,
+    and none of the abab ids contain `minimax`. The provider's default pick
+    was the one running without a profile while M2.7 and M3 got the tuned one.
+  - `gemma-4-27b-it` is Gemma 4 under Google's own hyphenated id, and 0.5.4
+    fixed only the Ollama spelling: `gemma4` does not match `gemma-4`, so the
+    vendor ids kept falling through to Gemma-2-era sampling and a compaction
+    floor. A twin profile, not a variant - same model, same card. The pattern
+    is the literal `gemma-4`, because a glob like `*gemma*4*` would also
+    swallow google/gemma-3-4b-it.
+- **`index.json` claimed libraryVersion 0.5.2 while the changelog stood at
+  0.5.6.** Four releases of drift in the field that tells an installation what
+  it is running. Now 0.5.7 and moving with the changelog.
+- **A profile note described a tool cap this library removed in 0.3.3.** The
+  generic DeepSeek notes still explained a raise from 16 to 24, and the Gemma
+  notes still recommended a smaller tool set, on files that carry no `maxTools`
+  at all. Notes are read by humans deciding what to copy, so a stale one is a
+  wrong instruction with a long half-life. Both rewritten, and the Kimi notes
+  now say plainly that its temperature never reaches the endpoint.
+- **SCHEMA.md had a sentence cut in half by a later insertion** ("Only set
+  `maxTools` / `compactionLevel` for models that genuinely struggle" ... "with
+  a large tool set or prompt"), and it still told contributors to keep hints
+  under 600 characters until Skales 12.2.0 rolled out. 12.2.0 shipped months
+  ago, the bound is 1500, and every hint in the library has been over 600 for
+  some time. Both fixed, and the four behavioural lines every profile must
+  carry are now written down instead of being folklore.
+
 ## 0.5.6 - 2026-08-09
 
 - **GigaChat gets a profile, written from a real-key report.** On some turns

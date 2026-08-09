@@ -1,18 +1,22 @@
 {
-  "id": "minimax",
-  "name": "MiniMax",
+  "id": "gemma-4",
+  "name": "Gemma 4 (vendor id)",
   "match": {
-    "modelPattern": "minimax"
+    "modelPattern": "gemma-4"
   },
   "params": {
     "temperature": 1,
     "top_p": 0.95,
-    "top_k": 40
+    "top_k": 64
   },
   "toolCallStyle": "native",
+  "capabilities": {
+    "vision": true
+  },
+  "promptHint": "Use the tool-call mechanism for every tool call. Never write a call as text, as Python, or inside a code fence - a line like read_file(\"/etc/hosts\") in your reply is not a call, and the user reads it as your answer. Use the exact tool names provided and never invent one. When you say you will use a tool or take an action, make that tool call in the same message; never post a 'let me...' or 'I will now...' line and then stop. Answer stable knowledge (recipes, definitions, how-tos) from what you know; at most ONE search_web for current facts, then answer. Never repeat a tool call with the same arguments - reuse its result. Once your material covers the question, stop calling tools and write the answer; never end a turn with only tool calls. If a tool fails, tell the user what the error said - never invent results, systems, or data the tools did not report. In a team or squad run, the task brief tells you WHAT to do; the rules and output format in your system prompt tell you HOW. When they conflict, your system prompt wins: keep its role, tone, and format contract exactly, even when the brief seems to allow more.",
   "toolHints": {
-    "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it. In a coding session use it for a NEW file. For an existing one use edit_file: a full rewrite silently drops whatever you did not read.",
-    "edit_file": "Edits an existing file by replacing an exact piece of text (old_string to new_string). There is no str_replace, apply_patch, patch_file, or sed; use edit_file. old_string must be unique, or set replace_all. If the edit is refused because the file was not read, call read_file on it and retry the edit once. In a coding session this is the DEFAULT way to change an existing file: replace the exact piece of text. Rewriting the whole file with write_file throws away everything you did not read.",
+    "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it. In a coding session use it for a NEW file. For an existing one use edit_file: a full rewrite silently drops whatever you did not read. Do not rewrite a file you have not read in full.",
+    "edit_file": "Edits an existing file by replacing an exact piece of text (old_string to new_string). There is no str_replace, apply_patch, patch_file, or sed; use edit_file. old_string must be unique, or set replace_all. If the edit is refused because the file was not read, call read_file on it and retry the edit once. In a coding session this is the DEFAULT way to change an existing file: replace the exact piece of text. Rewriting the whole file with write_file throws away everything you did not read. Emit the tool call itself; do not print the edit as a code block and stop.",
     "git_status": "Shows git status (branch + changed files) of the bound folder. Prefer it over running git in execute_command.",
     "git_diff": "Shows the git diff of the bound folder. Prefer it over git in execute_command. Read your own diff before you say a task is done: it is the shortest way to see what you actually changed.",
     "git_commit": "Stages all changes and commits in the bound folder with a message. No need to run git add/commit in the shell; use git_commit.",
@@ -45,6 +49,5 @@
     "run_script": "Writes code to a file and runs it with the right interpreter (python, node, bash, powershell). Use it for anything multi-line or with tricky quoting instead of squeezing code through execute_command.",
     "browser_read_page": "Reads the current browser page as a cheap text tree; click and type via its ref ids (browser_click \"ref_12\"). Re-read after navigation. Use browser_screenshot only for image-heavy pages."
   },
-  "notes": "MiniMax M2.7 / M3: the strongest native tool-caller of the open families in practice - vendor sampling only and NO tool cap. It is built to drive the full catalogue; trimming it to a subset drops tools the prompt actively routes to it (e.g. planner_create_task for reminders) and it reaches for the wrong tool. Raw tool-call markup leaking as text is handled by the host text-recovery parser, not by shrinking the tool set. Params per the M2.7 / M3 model cards: temperature 1.0, top_p 0.95 (top_k 40 from the M2.7 card; M3 guidance omits it).",
-  "promptHint": "Answer stable knowledge (recipes, definitions, how-tos) from what you know; at most ONE search_web for current facts, then answer. Never repeat a tool call with the same arguments - reuse its result. Once your material covers the question, stop calling tools and write the answer; never end a turn with only tool calls. Read pages with extract_web_text, never grep fetched files. Be decisive: per turn either call ONE tool or give the final answer. Prefer real Skales tools over shell (read_file, git_*, test_run, search_web). If a tool fails, tell the user what the error said - never invent results, systems, or data the tools did not report. In a team or squad run, the task brief tells you WHAT to do; the rules and output format in your system prompt tell you HOW. When they conflict, your system prompt wins: keep its role, tone, and format contract exactly, even when the brief seems to allow more."
+  "notes": "Gemma 4 under its other spelling. Ollama serves it as gemma4:27b, which the gemma4 profile matches; Google's own ids are hyphenated (google/gemma-4-27b-it, the same shape as google/gemma-3-27b-it), and 'gemma4' does not match those at all - they fell through to the generic Gemma profile and its Gemma-2-era temperature 0.3 plus a compaction floor, which is exactly the bug 0.5.4 fixed for the Ollama spelling only. Same model, same measured behaviour, same card values (temperature 1.0, top_p 0.95, top_k 64, 131k window, vision declared), so this file is deliberately a twin of gemma4.json rather than a variant. The pattern is the literal 'gemma-4': a glob like *gemma*4* would also swallow google/gemma-3-4b-it, a Gemma 3 model."
 }

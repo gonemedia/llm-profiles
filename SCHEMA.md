@@ -56,18 +56,24 @@ are required; everything else is optional and omitted fields simply do not apply
   0.3 for tool turns and restored for prose. This never removes a tool; it only
   shapes how reliably the call is emitted.
 - Only set `maxTools` / `compactionLevel` for models that genuinely struggle
+  with a large tool set or prompt; do not throttle a capable model.
 - Careful with `maxTools`: the cap keeps core tools by tier, but dynamically
   registered tools (MCP servers, `mcp_<server>_*`) rank low and are dropped
   first - a capped profile can silently disable connected MCP backends (e.g.
   media generation in Studio Flow). Prefer no cap unless the model truly
   chokes on large tool sets.
-  with a large tool set or prompt; do not throttle a capable model.
 - Keep `promptHint` short and lead with the most important guidance: it is a
   nudge, not a manual. Skales clamps the field on import (Skales 12.1.1 and
   earlier cut it at 600 characters; 12.2.0+ raises the bound to 1500 and warns
-  in the log when a hint is truncated). Because released clients still enforce
-  600, keep library hints at or under 600 characters until 12.2.0 has rolled
-  out, so a synced hint is never cut mid-sentence on an older app.
+  in the log when a hint is truncated). 12.2.0 is long released, so 1500 is the
+  budget that applies; library hints currently run about 850 to 1150 characters.
+  Anything approaching the bound is a hint that has become a manual - shorten it
+  rather than trusting the clamp, which cuts mid-sentence.
+- Every profile carries the same four behavioural lines, and a new one is not
+  finished without them: do not repeat a tool call with the same arguments, do
+  not end a turn on tool calls alone, say what a failed tool actually reported
+  instead of inventing a result, and in a squad run let the system prompt
+  outrank the coordinator's brief. Family-specific guidance leads; these close.
 - Use `toolHints` to fix a specific name mismatch: a map of Skales tool name ->
   a short explanation in the model's own terms. Set it when a model natively
   reaches for a different name (e.g. emits `create_file` when Skales' tool is

@@ -109,7 +109,49 @@
       "name": "GigaChat",
       "file": "profiles/gigachat.json",
       "modelPattern": "gigachat"
+    },
+    {
+      "id": "gemma-4",
+      "name": "Gemma 4 (vendor id)",
+      "file": "profiles/gemma-4.json",
+      "modelPattern": "gemma-4"
+    },
+    {
+      "id": "magistral",
+      "name": "Magistral (Mistral reasoning)",
+      "file": "profiles/magistral.json",
+      "modelPattern": "magistral"
+    },
+    {
+      "id": "codestral",
+      "name": "Codestral",
+      "file": "profiles/codestral.json",
+      "modelPattern": "codestral"
+    },
+    {
+      "id": "mixtral",
+      "name": "Mixtral",
+      "file": "profiles/mixtral.json",
+      "modelPattern": "mixtral"
+    },
+    {
+      "id": "hy3",
+      "name": "Hunyuan Hy3",
+      "file": "profiles/hy3.json",
+      "modelPattern": "hy3"
+    },
+    {
+      "id": "hunyuan",
+      "name": "Hunyuan (Tencent)",
+      "file": "profiles/hunyuan.json",
+      "modelPattern": "hunyuan"
+    },
+    {
+      "id": "abab",
+      "name": "MiniMax abab",
+      "file": "profiles/abab.json",
+      "modelPattern": "abab"
     }
   ],
-  "libraryVersion": "0.5.2"
+  "libraryVersion": "0.5.7"
 }
