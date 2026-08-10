@@ -23,7 +23,7 @@ run unchanged. Profiles target the models that benefit: weaker, local, or quirky
 
 ## Profiles in this library
 
-All 25 profiles, grouped by family (`index.json` keeps them in the order they were
+All 26 profiles, grouped by family (`index.json` keeps them in the order they were
 added, which is the manifest's job, not a reading order). A profile with no sampling
 params carries the behaviour layer only: one tool at a time, no repeated call,
 exact tool names, say what a failed tool reported, and the system prompt outranks
@@ -33,9 +33,10 @@ a squad brief. That is deliberate - this repo does not ship numbers it cannot ci
 |---|---|---|
 | DeepSeek | `deepseek` | V3-era / R1 / local distills: low temp + explicit tool-name hints for reliable multi-tool calling. |
 | DeepSeek V4 | `deepseek-v4` | Agent-grade (V4 / Flash / Pro); vendor params (temp 1.0, top_p 1.0), no tool cap (it drives the full catalogue). |
-| Qwen | `qwen` | Qwen2.5 / Qwen3: strong native tool-caller; vendor non-thinking params (temp 0.7, top_p 0.8, top_k 20). Also where `qwen3-max` and `qwen3.7` land, and correctly so. |
+| Qwen | `qwen` | Qwen2.5 / Qwen3: strong native tool-caller; vendor non-thinking params (temp 0.7, top_p 0.8, top_k 20). Also where `qwen3-max` lands, and correctly so. |
 | Qwen 3.5 | `qwen3.5` | Vendor params moved to temp 1.0, top_p 0.95, top_k 20. |
 | Qwen 3.6 | `qwen3.6` | `qwen3.5` does not match 3.6, so it fell back to Qwen2.5-era params. Same vendor numbers as 3.5, plus the local dialect (a bare typed JSON object instead of a native call) named in the hint. |
+| Qwen 3.7 | `qwen3.7` | Thinking mode on every turn, so the generic `qwen` profile was handing it the vendor's NON-thinking numbers. Params are the vendor's own published 3.7 run config (temp 1.0, top_p 0.95, top_k 20), and `longThinking` keeps a long silent stretch from reading as a stalled stream. |
 | MiniMax | `minimax` | Agentic tool-caller (M2.7 / M3); vendor params (temp 1.0, top_p 0.95, top_k 40), no tool cap (it drives the full catalogue). |
 | MiniMax abab | `abab` | The older MiniMax namespace, including `abab6.5s-chat`, the provider's recommended pick: no `abab` id contains `minimax`, so the default model ran with no profile. No params - the M2.7/M3 cards say nothing about abab. |
 | GLM | `glm` | Solid tool-caller (4.x / 5); GLM-5 agentic-eval params (temp 0.7, top_p 0.95). |

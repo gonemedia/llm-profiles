@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.5.9 - 2026-08-10
+
+One profile added, and it is added because the mode changed, not because the
+version number did.
+
+- **Qwen 3.7 gets its own profile.** `qwen3.5` and `qwen3.6` do not match 3.7,
+  so `qwen/qwen3.7-max` fell through to the generic `qwen` profile. That was the
+  right call while nothing could be cited about 3.7, and it stopped being the
+  right call once the vendor documentation said the model thinks on every turn:
+  the generic profile's temperature 0.7 / top_p 0.8 / top_k 20 is the vendor's
+  NON-thinking guidance, the wrong half of the card. The new file carries the
+  vendor's own published 3.7 run configuration instead (temperature 1.0,
+  top_p 0.95, top_k 20), which happens to be the same triple 3.5 and 3.6 use -
+  cited, not inherited from its siblings.
+- **`capabilities.longThinking` on that profile.** 3.7 reasons before it emits
+  anything and its ids contain none of the words a host's name rule looks for
+  (`reasoner`, `thinking`, `o1`), which is exactly the Nemotron case: a real
+  silent stretch read as a stalled stream and cut mid-thought. The flag is the
+  data answer to a question the name cannot answer.
+- **`capabilities.vision` deliberately left out.** The default 3.7 id is
+  text-only; a later dated snapshot added image input, and one pattern covers
+  both. Marking a text model image-capable is worse than letting the host
+  detect it, the same reasoning that keeps `hunyuan-vision` unflagged.
+- YandexGPT was reviewed for a profile of its own and deliberately does not get
+  one yet. The only number its API publishes is a server-side DEFAULT
+  temperature, not a recommendation, and restating a default as a profile
+  parameter is how a library starts shipping numbers it cannot cite. The family
+  stays a note until an endpoint exists to measure it against.
+- `index.json` moves to 0.5.9 with the changelog: 26 profiles, 26 files, the
+  README table lists all of them.
+
 ## 0.5.8 - 2026-08-09
 
 Documentation only: no profile changed, so nothing about how a model is driven

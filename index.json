@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-09",
+  "updated": "2026-08-10",
   "profiles": [
     {
       "id": "deepseek",
@@ -31,6 +31,12 @@
       "name": "Qwen 3.6",
       "file": "profiles/qwen3.6.json",
       "modelPattern": "qwen3.6"
+    },
+    {
+      "id": "qwen3.7",
+      "name": "Qwen 3.7",
+      "file": "profiles/qwen3.7.json",
+      "modelPattern": "qwen3.7"
     },
     {
       "id": "minimax",
@@ -153,5 +159,5 @@
       "modelPattern": "abab"
     }
   ],
-  "libraryVersion": "0.5.8"
+  "libraryVersion": "0.5.9"
 }
