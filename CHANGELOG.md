@@ -1,5 +1,52 @@
 # Changelog
 
+## 0.5.10 - 2026-08-22
+
+Two profiles added. Both come from the same check 0.5.7 ran: every model id the
+app itself offers, put through the real resolver rather than reasoned about.
+Two matched nothing.
+
+- **Muse Glimmer gets a profile, and it is the one that mattered.** Meta's 30B
+  open-weights agentic model (Apache-2.0, released this month) ships in Skales'
+  own local catalogue described as the agentic flagship - and it matched no
+  profile at all. Nothing could reach it: `muse-glimmer-30b-q4` contains no
+  family name any pattern looks for, and the small-model catch-all stops at 9B,
+  so the local agent the app recommends was the one running untuned. Sampling is
+  the vendor's published run configuration, temperature 1.0, top_p 0.95,
+  top_k 64, stated the same way on Meta's model card and on the Unsloth GGUF
+  card Skales actually downloads from - two sources for one number, which is why
+  this file is a citation and not an extrapolation. 131k context, so no
+  compaction floor and no tool cap.
+- **`longThinking` on it, `vision` deliberately not.** It reasons before it
+  emits and its id contains none of the words a host's name rule looks for
+  (`reasoner`, `thinking`, `o1`), which is the Nemotron and Qwen 3.7 case: a
+  real silent stretch read as a stalled stream. Vision stays unset for the
+  hunyuan-vision rule - the weights are multimodal, but locally the image path
+  exists only when the separate mmproj companion is loaded, and the DFlash
+  drafter that makes the model fast is documented as unusable with vision. One
+  pattern covers all three states, and marking a possibly text-only run
+  image-capable is worse than letting the host detect it.
+- **The vendor's `Reasoning strength: low|medium|high|xhigh` line is left out.**
+  The card recommends high or xhigh for agentic work, so it is citable, but it
+  is also a real token-cost decision. A profile that raises what a run costs
+  without being asked is not the behaviour layer's job.
+- **DBRX gets the behaviour layer and no numbers.** `databricks/dbrx-instruct`
+  is in the app's own Together list; the id carries no family substring and
+  encodes no parameter count, so it reached neither a family profile nor the
+  small-model catch-all and ran with no tool hints at all. That is the Mixtral
+  case, and this is the same answer to it: exact tool names, one call at a time,
+  say what a failed tool reported. No sampling params - the temperature 0.9 /
+  top_p 0.9 pair that circulates for DBRX is the default of hosted playgrounds,
+  not a vendor recommendation, and restating a server-side default is what this
+  library declined to do for YandexGPT in 0.5.9.
+- Checked and unchanged: the 2026 open-weight models the field actually talks
+  about - MiniMax M3, Kimi K2.6/K2.7, GLM-5.x, DeepSeek V4, Qwen 3.6/3.7 - all
+  already resolve to a family profile, so none of them needed one. Adding the
+  two above reassigned nothing: every other id the app offers keeps the profile
+  it had.
+- `index.json` moves to 0.5.10 with the changelog: 28 profiles, 28 files, and
+  the README table lists all of them.
+
 ## 0.5.9 - 2026-08-10
 
 One profile added, and it is added because the mode changed, not because the

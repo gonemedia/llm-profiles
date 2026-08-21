@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-10",
+  "updated": "2026-08-22",
   "profiles": [
     {
       "id": "deepseek",
@@ -157,7 +157,19 @@
       "name": "MiniMax abab",
       "file": "profiles/abab.json",
       "modelPattern": "abab"
+    },
+    {
+      "id": "muse-glimmer",
+      "name": "Muse Glimmer (Meta)",
+      "file": "profiles/muse-glimmer.json",
+      "modelPattern": "muse-glimmer"
+    },
+    {
+      "id": "dbrx",
+      "name": "DBRX (Databricks)",
+      "file": "profiles/dbrx.json",
+      "modelPattern": "dbrx"
     }
   ],
-  "libraryVersion": "0.5.9"
+  "libraryVersion": "0.5.10"
 }

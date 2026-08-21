@@ -1,0 +1,53 @@
+{
+  "id": "muse-glimmer",
+  "name": "Muse Glimmer (Meta)",
+  "match": {
+    "modelPattern": "muse-glimmer"
+  },
+  "params": {
+    "temperature": 1,
+    "top_p": 0.95,
+    "top_k": 64
+  },
+  "toolCallStyle": "native",
+  "toolHints": {
+    "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it. In a coding session use it for a NEW file. For an existing one use edit_file: a full rewrite silently drops whatever you did not read.",
+    "edit_file": "Edits an existing file by replacing an exact piece of text (old_string to new_string). There is no str_replace, apply_patch, patch_file, or sed; use edit_file. old_string must be unique, or set replace_all. If the edit is refused because the file was not read, call read_file on it and retry the edit once. In a coding session this is the DEFAULT way to change an existing file: replace the exact piece of text. Rewriting the whole file with write_file throws away everything you did not read.",
+    "git_status": "Shows git status (branch + changed files) of the bound folder. Prefer it over running git in execute_command.",
+    "git_diff": "Shows the git diff of the bound folder. Prefer it over git in execute_command. Read your own diff before you say a task is done: it is the shortest way to see what you actually changed.",
+    "git_commit": "Stages all changes and commits in the bound folder with a message. No need to run git add/commit in the shell; use git_commit.",
+    "git_push": "Pushes commits from the bound folder to the remote. Use git_push, not git in execute_command.",
+    "test_run": "Runs the project tests in the bound folder (auto-detects npm/jest/vitest, pytest, cargo, go). Prefer it over guessing the test command. After a change, run it and report what it actually printed. Saying a change works without running anything is the most expensive mistake you can make here.",
+    "read_file": "Reads a file's contents. There is no cat, open_file, or view_file; use read_file. In a coding session, read a file BEFORE you change it. edit_file refuses an unread file, and an edit written from memory is a guess.",
+    "list_directory": "Lists files and folders in a directory. There is no ls, list_files, or dir; use list_directory.",
+    "execute_command": "Runs one shell command. There is no bash, shell, run_command, terminal, or exec tool; use execute_command. Do not use it to read or write files; use read_file and write_file. For anything multi-line or containing quotes/braces, use run_script instead. If it offers run_in_background, use that for anything that does not end by itself (a dev server, a watcher, a long build) and read its output with read_shell_output instead of waiting.",
+    "search_web": "Searches the web. There is no google, web_search, or browse tool; use search_web.",
+    "fetch_web_page": "Fetches a page by URL as HTML. There is no open_url, visit, navigate, or curl; use fetch_web_page, or extract_web_text for just the readable text.",
+    "extract_web_text": "Gets the readable text of a web page. There is no scrape or read_url; use extract_web_text.",
+    "delete_file": "Deletes a file or folder. There is no rm, remove_file, or unlink; use delete_file.",
+    "create_directory": "Creates a folder, including missing parents. There is no mkdir or create_folder; use create_directory.",
+    "move_file": "Moves or renames a file or folder. There is no mv or rename; use move_file.",
+    "copy_file": "Copies a file. There is no cp; use copy_file.",
+    "download_file": "Downloads a URL to a local file. There is no wget or curl; use download_file.",
+    "send_email": "Sends an email through the user's configured account. There is no email, mail, or compose tool; use send_email.",
+    "send_whatsapp_message": "Sends a WhatsApp message to a permitted contact. There is no whatsapp or send_message tool; use send_whatsapp_message.",
+    "send_telegram_notification": "Sends a Telegram message to the paired chat. There is no telegram or notify tool; use send_telegram_notification.",
+    "create_task": "Adds a plain to-do WITHOUT a time component. There is no add_todo or todo tool; use create_task. Anything time-based (\"remind me at/in ...\") goes to planner_create_task instead.",
+    "planner_create_task": "Schedules a one-time or recurring reminder/job (daily, weekly, monthly). There is no set_reminder, remind, schedule, or cron tool; use planner_create_task, or schedule_recurring_task for sub-daily intervals.",
+    "list_emails": "Reads the inbox: lists recent emails via IMAP. There is no read_emails, check_email, fetch_emails, get_inbox, or read_mail; use list_emails.",
+    "mark_email_read": "Marks an email as read (by uid from list_emails). There is no mark_as_read or email_mark_read; use mark_email_read.",
+    "list_calendar_events": "Lists upcoming calendar events. There is no get_calendar, check_calendar, get_events, or calendar_list; use list_calendar_events.",
+    "create_calendar_event": "Creates a calendar event. There is no add_event, calendar_add, or schedule_event; use create_calendar_event. Plain reminders go to planner_create_task instead.",
+    "generate_image": "Generates an image from a text prompt. There is no create_image, text_to_image, dalle, or imagine; use generate_image.",
+    "ask_user": "Asks the user a question and waits for the answer. There is no ask_human, request_input, or human_feedback; use ask_user.",
+    "search_sessions": "Searches past chat sessions (long-term memory). There is no search_memory, recall, or memory_lookup; use search_sessions, or knowledge_graph_query for stored facts.",
+    "update_todos": "Maintains your working checklist for the current task. There is no todo_write, TodoWrite, or task_list; use update_todos. On a multi-step coding task keep it current and continue from the next unchecked item instead of starting over.",
+    "run_script": "Writes code to a file and runs it with the right interpreter (python, node, bash, powershell). Use it for anything multi-line or with tricky quoting instead of squeezing code through execute_command.",
+    "browser_read_page": "Reads the current browser page as a cheap text tree; click and type via its ref ids (browser_click \"ref_12\"). Re-read after navigation. Use browser_screenshot only for image-heavy pages."
+  },
+  "capabilities": {
+    "longThinking": true
+  },
+  "notes": "Meta's 30B open-weights agentic model (Apache-2.0), released August 2026 and shipped in Skales' own local catalogue as the agentic flagship - where it matched no profile at all, which is the reason this file exists. The id carries none of the substrings any existing pattern looks for: 'muse-glimmer-30b-q4' contains no family name, and the small-model catch-all does not reach it either because '30b' is above the 9B bound. So the app's own recommended local agent was the one running untuned. Sampling is the vendor's published run configuration - temperature 1.0, top_p 0.95, top_k 64 - stated identically on Meta's model card and on the Unsloth GGUF card Skales downloads from, so this is a citation rather than an extrapolation. 131k context, so no compaction floor and no tool cap: it is built to drive a full catalogue over long trajectories. longThinking is set for the Nemotron and Qwen 3.7 reason: it reasons before it emits, and its id contains none of the words a host's name rule looks for ('reasoner', 'thinking', 'o1'), so a real silent stretch would be read as a stalled stream. capabilities.vision is deliberately NOT set, the hunyuan-vision and Qwen 3.7 rule: the weights are multimodal, but vision only exists locally when the separate mmproj companion is loaded, and the DFlash drafter that makes it fast is documented as unusable with vision - one pattern covers all three states, and marking a possibly text-only run image-capable is worse than letting the host detect it. The vendor also documents a 'Reasoning strength: low|medium|high|xhigh' line in the system prompt and recommends high or xhigh for agentic work; that is left out on purpose, because it is a real token-cost decision and belongs to the user, not to a profile that ships silently.",
+  "promptHint": "You think before you answer: reason, then act in the same turn. Do not narrate a plan and stop. Call tools through the native tool-call channel only; a call written as text, as JSON, or in a code fence does not run, and the user sees it as your answer. On a long task keep update_todos current and continue from the next unchecked item instead of starting over. Answer stable knowledge (recipes, definitions, how-tos) from what you know; at most ONE search_web for current facts, then answer. Never repeat a tool call with the same arguments - reuse its result. Once your material covers the question, stop calling tools and write the answer; never end a turn with only tool calls. When you announce a tool or action, make that call in the same message; never say 'let me...' and stop. Use the exact tool names provided. If a tool fails, tell the user what the error said - never invent results, systems, or data the tools did not report. In a team or squad run, the task brief tells you WHAT to do; the rules and output format in your system prompt tell you HOW. When they conflict, your system prompt wins: keep its role, tone, and format contract exactly, even when the brief seems to allow more."
+}

@@ -23,7 +23,7 @@ run unchanged. Profiles target the models that benefit: weaker, local, or quirky
 
 ## Profiles in this library
 
-All 26 profiles, grouped by family (`index.json` keeps them in the order they were
+All 28 profiles, grouped by family (`index.json` keeps them in the order they were
 added, which is the manifest's job, not a reading order). A profile with no sampling
 params carries the behaviour layer only: one tool at a time, no repeated call,
 exact tool names, say what a failed tool reported, and the system prompt outranks
@@ -53,9 +53,11 @@ a squad brief. That is deliberate - this repo does not ship numbers it cannot ci
 | Hunyuan Hy3 | `hy3` | Tencent's flagship and the default Skales selects for the Hunyuan provider. Its ids contain no `hunyuan` substring at all. Sampling from the official vLLM recipe (temp 0.9, top_p 1.0). |
 | Hunyuan (Tencent) | `hunyuan` | The other Hunyuan namespace on the legacy host (`hunyuan-turbos`, `-vision`, `-a13b`), which answers to neither `hy3` nor anything else. No params - the A13B card recommends none. |
 | Llama | `llama` | Vendor params. |
+| Muse Glimmer | `muse-glimmer` | Meta's 30B agentic open-weights model (Apache-2.0, August 2026). Its ids carry no family substring and `30b` is above the small-model bound, so it matched nothing. Vendor run config (temp 1.0, top_p 0.95, top_k 64), 131k window, and `longThinking` so its silent reasoning is not read as a stalled stream. |
 | Nemotron | `nemotron` | NVIDIA Nemotron-3 (ultra / nano); middle-ground sampling, and `longThinking` so a long silent stretch is not read as a stalled stream. |
 | Phi | `phi` | Verbose tool-caller; low temp + compact prompt. |
 | GPT-OSS | `gpt-oss` | Strong native tool-caller for its class; decisive turns. |
+| DBRX | `dbrx` | Databricks' open MoE instruct model. No family substring and no parameter count in the id, so it matched nothing and ran with no tool hints. No params - the 0.9/0.9 that circulates for it is a hosted playground default, not a vendor recommendation. |
 | Small model | `*b` (<= ~9B ids) | Compact prompt for tiny models (tool set is trimmed by the host's local-model setting, not the profile). |
 
 ## How Skales uses them
