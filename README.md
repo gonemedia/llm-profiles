@@ -90,6 +90,12 @@ Profiles are community-extensible. Add or improve one via PR, see
 [CONTRIBUTING.md](./CONTRIBUTING.md). Keep entries vendor-grounded (cite the
 source for params) and conservative (do not over-tune a capable model).
 
+## Related
+
+[Skales Plugins](https://github.com/skalesapp/plugins) is the community plugin
+registry for Skales - the same idea one layer up: a small, reviewed data file
+that the app reads, with the code staying in the author's own repository.
+
 ## License
 
 The profile data here is provided for use with Skales and compatible tools.
