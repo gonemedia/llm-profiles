@@ -9,6 +9,9 @@
     "top_p": 1
   },
   "toolCallStyle": "native",
+  "capabilities": {
+    "longThinking": true
+  },
   "toolHints": {
     "write_file": "Creates a file or overwrites a whole file. There is no create_file, new_file, or save_file; use write_file. To change PART of an existing file, prefer edit_file over rewriting it. For a file too large to emit in one call, write the first chunk here then add the rest with append_file. In a coding session use it for a NEW file. For an existing one use edit_file: a full rewrite silently drops whatever you did not read.",
     "append_file": "Appends content to the END of a file (creates it if missing). Use it to write a large file in parts when one write_file would be cut off by the output limit: write_file for the first chunk, then append_file once per remaining chunk, each under about 40KB.",
@@ -45,6 +48,6 @@
     "run_script": "Writes code to a file and runs it with the right interpreter (python, node, bash, powershell). Use it for anything multi-line or with tricky quoting instead of squeezing code through execute_command.",
     "browser_read_page": "Reads the current browser page as a cheap text tree; click and type via its ref ids (browser_click \"ref_12\"). Re-read after navigation. Use browser_screenshot only for image-heavy pages."
   },
-  "notes": "DeepSeek V4 family (V4, V4-Flash, V4-Pro): agent-grade, 1M context. Vendor guidance per the official HF model cards: temperature 1.0, top_p 1.0, all modes. NO tool cap - V4 is built to drive the full catalogue; a cap starves it of the tools the prompt tells it to use, which is why the old tight cap made it underperform vs MiniMax. More specific pattern, so it outranks the generic deepseek profile.",
+  "notes": "DeepSeek V4 family (V4, V4-Flash, V4-Pro): agent-grade, 1M context. Vendor guidance per the official HF model cards: temperature 1.0, top_p 1.0, all modes. NO tool cap - V4 is built to drive the full catalogue; a cap starves it of the tools the prompt tells it to use, which is why the old tight cap made it underperform vs MiniMax. More specific pattern, so it outranks the generic deepseek profile. longThinking is set because the V4 line reasons before it emits: the silent stretch is real work, and without the flag a host measures it against a short budget and reads it as a stalled stream.",
   "promptHint": "Answer stable knowledge (recipes, definitions, how-tos) from what you know; at most ONE search_web for current facts, then answer. Never repeat a tool call with the same arguments - reuse its result. Once your material covers the question, stop calling tools and write the answer; never end a turn with only tool calls. Read pages with extract_web_text, never grep fetched files. For a file too large for one write_file, continue with append_file chunks. If unsure a tool exists, call check_capabilities and use the exact name it returns. If a tool fails, tell the user what the error said - never invent results, systems, or data the tools did not report. In a team or squad run, the task brief tells you WHAT to do; the rules and output format in your system prompt tell you HOW. When they conflict, your system prompt wins: keep its role, tone, and format contract exactly, even when the brief seems to allow more."
 }

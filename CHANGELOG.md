@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.5.11 - 2026-09-01
+
+One flag on four profiles, and the reason it could not be derived.
+
+- **`longThinking` on DeepSeek V4, Qwen3.5, Qwen3.6 and MiniMax.** All four
+  reason before they emit, and the silence in between is work. A host that has
+  no flag to read measures that stretch against a short budget and cuts the
+  stream while the model is still thinking, so the user sees a truncated answer
+  and blames the model. The flag is the only way that fact travels.
+- **Why no name rule can replace it.** For Qwen3.5 and Qwen3.6 thinking mode is
+  a per-request choice rather than part of the model id, so nothing in the name
+  says whether this call will pause. DeepSeek V4 and MiniMax M reason on every
+  call regardless of how they are addressed. In both shapes the id is silent
+  about the behaviour, which is exactly what a capability field is for.
+- **Nothing else moved.** Sampling, tool-call style, tool hints and prompt
+  hints are untouched; the notes on each profile now say why the flag is set.
+
 ## 0.5.10 - 2026-08-22
 
 Two profiles added. Both come from the same check 0.5.7 ran: every model id the
