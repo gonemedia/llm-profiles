@@ -99,4 +99,6 @@ that the app reads, with the code staying in the author's own repository.
 ## License
 
 The profile data here is provided for use with Skales and compatible tools.
-Skales is BSL-1.1. These profiles are configuration data, not Skales source.
+Skales itself is proprietary software under the Skales End User Licence
+Agreement (https://skales.app/licence). These profiles are configuration data,
+not Skales source.
